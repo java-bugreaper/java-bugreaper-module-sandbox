@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "required": [
+    "name",
+    "email",
+    "age",
+    "is_active",
+    "note"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "number"
+    },
+    "age": {
+      "type": "integer"
+    },
+    "is_active": {
+      "type": "boolean"
+    },
+    "note": {
+      "type": "null"
+    }
+  }
+}

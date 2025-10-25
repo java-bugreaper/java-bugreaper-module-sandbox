@@ -1,0 +1,11 @@
+,Positive_test_1_0_1,Positive_test_1_0_2,Positive_test_1_0_3,,Negative_test_1_0_1,Negative_test_1_0_2
+--Base params,,,,,,
+first param,2,"3,0*",0,,empty*,null*
+second param,2,3,0,,1,4
+--Other params,,,,,,
+operation,+,+,+,,+,+
+other param,,,,,,
+,,,,,,
+==EXPECTED RESULT==,,,,,,
+,,,,,,
+sum,4,6,0,,error,error

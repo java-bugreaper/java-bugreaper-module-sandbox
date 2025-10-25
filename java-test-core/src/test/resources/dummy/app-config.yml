@@ -1,0 +1,12 @@
+server:
+  port: 1080
+
+
+spring:
+  datasource:
+    driver-class-name: 'org.mariadb.jdbc.Driver'
+    url: 'jdbc:mariadb:sequential://db:3306/MARIA_SCHEMA?useUnicode=true&serverTimezone=UTC&useSSL=false&autoReconnect=true'
+    name: 'java-test'
+    username: 'MARIA_SCHEMA'
+    password: 'maria_pass'
+

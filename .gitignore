@@ -1,0 +1,18 @@
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### auto-tests ###
+gradle/
+.gradle
+.allure
+
+.env
+/_output/
+
+### auto-tests local###
+/java-test/build/
+/java-test-part1/build/

@@ -1,0 +1,146 @@
+plugins {
+    id("java-library")
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+def allureVersion = "2.27.0"
+
+dependencies {
+//not need but you cam use for new core
+//    implementation 'io.gitlab.ambu550:bugreaper-core:0.0.5' //new core version
+    implementation("io.gitlab.ambu550:bugreaper-module-minio:0.0.2")
+
+    implementation("org.aeonbits.owner:owner:1.0.12")
+}
+
+test {
+    useJUnitPlatform()
+
+    systemProperties(System.getProperties())
+
+    testLogging {
+        events("PASSED", "FAILED", "SKIPPED")
+        showStandardStreams = true
+        exceptionFormat = "full"
+    }
+
+    test.outputs.upToDateWhen { false }
+}
+
+tasks.register("all", Test) {
+    useJUnitPlatform {
+        includeTags("minio")
+    }
+
+        systemProperties(System.getProperties())
+
+        testLogging {
+            events("PASSED", "FAILED", "SKIPPED")
+            showStandardStreams = true
+            exceptionFormat = "full"
+        }
+
+        test.outputs.upToDateWhen { false }
+
+}
+
+tasks.register("failed", Test) {
+    useJUnitPlatform {
+        includeTags("failed")
+    }
+
+    systemProperties(System.getProperties())
+
+    testLogging {
+        events("PASSED", "FAILED", "SKIPPED")
+        showStandardStreams = true
+        exceptionFormat = "full"
+    }
+
+    test.outputs.upToDateWhen { false }
+}
+
+tasks.register("minio", Test) {
+    useJUnitPlatform {
+        includeTags("minio")
+    }
+
+    systemProperties(System.getProperties())
+
+    testLogging {
+        events("PASSED", "FAILED", "SKIPPED")
+        showStandardStreams = true
+        exceptionFormat = "full"
+    }
+
+    test.outputs.upToDateWhen { false }
+}
+
+task allureGenReport {
+    dependsOn("allureServerGenerate")
+    tasks.findByName('allureServerGenerate').mustRunAfter("all")
+    tasks.findByName('allureServerGenerate').mustRunAfter("minio")
+}
+
+allure {
+    version = allureVersion
+    aspectjweaver = true
+    configuration = "implementation"
+    autoconfigure = true
+
+    useJUnit5 {
+        version = allureVersion
+    }
+}
+
+task testWithReport {
+    dependsOn("clean")
+    dependsOn("test")
+    dependsOn("allureServerGenerate")
+    tasks.findByName('test').mustRunAfter("clean")
+    tasks.findByName('allureServerGenerate').mustRunAfter("test")
+}
+
+allureServer {
+    relativeResultDir = "build/allure-results"
+    allureServerUrl = "http://localhost:8080/"
+    requestToGeneration = { uuid ->
+        """
+            {
+            "reportSpec": {
+                "path": [
+                    "bugreaper-sandbox.test-report"
+                ],
+                "executorInfo": {
+                    "name": "GitLab CI",
+                    "type": "GitLab CI",
+                    "buildName": "gitlab pipeline with tests running on [${System.properties['app']}] env",
+                    "buildUrl": "https://gitlab.com/ambu550/ java-bugreaper-sandbox/-/pipelines",
+                    "reportName": "java tests"
+                }
+            },
+            "results": ["$uuid"],
+            "deleteResults": true
+            }
+        """
+    }
+
+    gitLabCallbackEnable = false // Optional
+
+}
+
+
+allureGitLabCallback {
+    reportUrlString = 'test_override'
+    gitLabMergeRequestNotesEndpointPath {
+        "${-> apiUrl}/projects_override/${-> projectId}/merge_requests/${-> mrId}/notes"
+    }
+}
