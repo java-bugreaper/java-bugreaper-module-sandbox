@@ -1,0 +1,25 @@
+buildscript {
+    repositories {
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
+    }
+
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:2.8.1"
+        classpath "gradle.plugin.ru.iopump.qa.allure:allure-server-gradle:0.1.2"
+    }
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'io.qameta.allure'
+    apply plugin: 'ru.iopump.qa.allure'
+
+    repositories {
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
+    }
+}

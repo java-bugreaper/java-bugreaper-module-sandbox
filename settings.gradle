@@ -1,0 +1,4 @@
+rootProject.name = 'java-bugreaper-sandbox'
+include 'java-test-core'
+include 'java-test-part1'
+startParameter.continueOnFailure = true

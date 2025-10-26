@@ -1,0 +1,157 @@
+stages:
+  - test
+  - report
+  - deploy
+
+image: docker:24.0.7
+variables:
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_HOST: tcp://docker:2375
+
+    RUN_TESTS_CORE:
+      value: "TRUE"
+      options:
+        - "FALSE"
+        - "TRUE"
+      description: "Run core tests"
+    RUN_TESTS_PART1:
+      value: "TRUE"
+      options:
+        - "FALSE"
+        - "TRUE"
+      description: "Run examples of tests part1"
+
+    RUN_TESTS_FAILED_PART1:
+      value: "TRUE"
+      options:
+        - "FALSE"
+        - "TRUE"
+      description: "Run examples of failed tests part1"
+
+
+java-test-core:
+  services:
+    - name: docker:24.0.7-dind
+      alias: docker
+      command: ["--tls=false"]
+  stage: test
+  script:
+#    - echo 'startup log success' > ${CI_PROJECT_DIR}/java-test/src/test/resources/logs/test.log
+    - docker-compose -f docker-compose-core.yml up --force-recreate --exit-code-from autotest-example
+  after_script:
+    - docker-compose -f docker-compose-core.yml down --remove-orphans
+    - mkdir -p _output/allure-results
+    - cp java-test-core/build/allure-results/* _output/allure-results
+    - chmod -R 777 _output/
+  only: [ web, api, merge_requests, main ]
+  except:
+    variables:
+      - $RUN_TESTS_CORE == "FALSE"
+    refs:
+      - tags
+  artifacts:
+    when: always
+    paths:
+      - ./_output
+    expire_in: 1 hour
+
+java-test-part1:
+  services:
+    - name: docker:24.0.7-dind
+      alias: docker
+      command: ["--tls=false"]
+  variables:
+    TAG: 'all'
+  stage: test
+  script:
+    - docker-compose -f docker-compose-part1.yml up --force-recreate --exit-code-from autotest-example
+  after_script:
+    - docker-compose -f docker-compose-part1.yml down --remove-orphans
+    - mkdir -p _output/allure-results
+    - cp java-test-part1/build/allure-results/* _output/allure-results
+    - chmod -R 777 _output/
+  only: [ web, api, merge_requests, main ]
+  except:
+    variables:
+      - $RUN_TESTS_PART1 == "FALSE"
+    refs:
+      - tags
+  artifacts:
+    when: always
+    paths:
+      - ./_output
+    expire_in: 1 hour
+
+
+java-test-part1-failed:
+  services:
+    - name: docker:24.0.7-dind
+      alias: docker
+      command: ["--tls=false"]
+  variables:
+    TAG: 'failed'
+  stage: test
+  script:
+    - echo 'startup log success' > ${CI_PROJECT_DIR}/java-test-part1/src/test/resources/logs/test.log
+    - docker-compose -f docker-compose-part1.yml up --force-recreate --exit-code-from autotest-example
+  after_script:
+    - docker-compose -f docker-compose-part1.yml down --remove-orphans
+    - mkdir -p _output/allure-results
+    - cp java-test-part1/build/allure-results/* _output/allure-results
+    - chmod -R 777 _output/
+  only: [ web, api, merge_requests, main ]
+  except:
+    variables:
+      - $RUN_TESTS_FAILED == "FALSE"
+    refs:
+      - tags
+  allow_failure:
+    exit_codes: 1
+  artifacts:
+    when: always
+    paths:
+      - ./_output
+    expire_in: 1 hour
+
+
+tests-report:
+  image: frankescobar/allure-docker-service:2.21.0
+  stage: report
+ # dependencies: [ "java-test", "java-test-dbs", "java-test-messages", "java-test-failed" ]
+  script:
+    - allure generate --clean _output/allure-results --report-dir _output/allure-report
+  after_script:
+    - echo https://$CI_PROJECT_ROOT_NAMESPACE.gitlab.io/-/$CI_PROJECT_TITLE/-/jobs/$CI_JOB_ID/artifacts/_output/allure-report/index.html
+  only: [ web, api, merge_requests, main ]
+  except:
+    - tags
+  when: always
+  needs:
+    - job: java-test-core
+      optional: true
+      artifacts: true
+    - job: java-test-part1
+      optional: true
+      artifacts: true
+    - job: java-test-part1-failed
+      optional: true
+      artifacts: true
+  artifacts:
+    when: always
+    paths:
+      - ./_output
+    expire_in: 7 day
+
+pages:
+  stage: deploy
+  dependencies: [ "tests-report" ]
+  script:
+    - mkdir public
+    - mv ./_output/allure-report/* public
+  only: [ main ]
+  except:
+    - tags
+  artifacts:
+    paths:
+      - public
+

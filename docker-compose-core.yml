@@ -1,0 +1,25 @@
+version: '3'
+services:
+
+  autotest-example:
+    container_name: autotest-example
+    image: gradle:7.6.3-jdk17
+    working_dir: /app
+    environment:
+      - TZ=Europe/Kiev
+      - JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
+      - JAVA_TOOL_OPTIONS=-Dapp=remote
+    volumes:
+      - .:/app # or like this ${CI_PROJECT_DIR}:/app
+    command: sh -c "gradle clean :java-test-core:test"
+
+  # for local presentation
+  allure-server:
+    container_name: allure-server
+    image: kochetkovma/allure-server:2.11.5
+    ports:
+      - "8080:8080"
+    environment:
+      TZ: "Europe/Kiev"
+
+    profiles: ["allure"]
