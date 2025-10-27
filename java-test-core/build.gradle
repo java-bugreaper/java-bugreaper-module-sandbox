@@ -8,8 +8,8 @@ java {
 }
 
 repositories {
-    mavenCentral()
     mavenLocal()
+    mavenCentral()
 }
 
 def allureVersion = "2.27.0"
