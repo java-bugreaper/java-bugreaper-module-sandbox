@@ -16,3 +16,4 @@ gradle/
 ### auto-tests local###
 /java-test/build/
 /java-test-part1/build/
+/build/
