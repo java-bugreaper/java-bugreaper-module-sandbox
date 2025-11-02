@@ -16,10 +16,11 @@ def allureVersion = "2.27.0"
 
 dependencies {
 //not need but you cam use for new core
-//    implementation 'io.gitlab.ambu550:bugreaper-core:0.0.5' //new core version
-    implementation("io.gitlab.ambu550:bugreaper-module-minio:0.0.3")
+//    implementation 'io.gitlab.ambu550:bugreaper-core:x.x.x'
+    implementation("io.gitlab.ambu550:bugreaper-module-minio:0.0.6")
 
     implementation("org.aeonbits.owner:owner:1.0.12")
+
 }
 
 test {
@@ -87,8 +88,6 @@ tasks.register("minio", Test) {
 
 task allureGenReport {
     dependsOn("allureServerGenerate")
-    tasks.findByName('allureServerGenerate').mustRunAfter("all")
-    tasks.findByName('allureServerGenerate').mustRunAfter("minio")
 }
 
 allure {
@@ -102,14 +101,6 @@ allure {
     }
 }
 
-task testWithReport {
-    dependsOn("clean")
-    dependsOn("test")
-    dependsOn("allureServerGenerate")
-    tasks.findByName('test').mustRunAfter("clean")
-    tasks.findByName('allureServerGenerate').mustRunAfter("test")
-}
-
 allureServer {
     relativeResultDir = "build/allure-results"
     allureServerUrl = "http://localhost:8080/"
@@ -118,13 +109,13 @@ allureServer {
             {
             "reportSpec": {
                 "path": [
-                    "bugreaper-sandbox.test-report"
+                    "bugreaper-sandbox-part1.test-report"
                 ],
                 "executorInfo": {
                     "name": "GitLab CI",
                     "type": "GitLab CI",
                     "buildName": "gitlab pipeline with tests running on [${System.properties['app']}] env",
-                    "buildUrl": "https://gitlab.com/ambu550/ java-bugreaper-sandbox/-/pipelines",
+                    "buildUrl": "https://gitlab.com/ambu550/java-bugreaper-sandbox/-/pipelines",
                     "reportName": "java tests"
                 }
             },
@@ -136,12 +127,4 @@ allureServer {
 
     gitLabCallbackEnable = false // Optional
 
-}
-
-
-allureGitLabCallback {
-    reportUrlString = 'test_override'
-    gitLabMergeRequestNotesEndpointPath {
-        "${-> apiUrl}/projects_override/${-> projectId}/merge_requests/${-> mrId}/notes"
-    }
 }
