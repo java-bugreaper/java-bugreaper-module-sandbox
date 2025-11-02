@@ -16,7 +16,7 @@ def allureVersion = "2.27.0"
 
 dependencies {
 
-    implementation 'io.gitlab.ambu550:bugreaper-core:0.0.5'
+    implementation 'io.gitlab.ambu550:bugreaper-core:0.0.7'
 
 }
 
@@ -70,8 +70,6 @@ tasks.register("core", Test) {
 
 task allureGenReport {
     dependsOn("allureServerGenerate")
-    tasks.findByName('allureServerGenerate').mustRunAfter("all")
-    tasks.findByName('allureServerGenerate').mustRunAfter("core")
 }
 
 allure {
@@ -85,14 +83,6 @@ allure {
     }
 }
 
-task testWithReport {
-    dependsOn("clean")
-    dependsOn("test")
-    dependsOn("allureServerGenerate")
-    tasks.findByName('test').mustRunAfter("clean")
-    tasks.findByName('allureServerGenerate').mustRunAfter("test")
-}
-
 allureServer {
     relativeResultDir = "build/allure-results"
     allureServerUrl = "http://localhost:8080/"
@@ -101,7 +91,7 @@ allureServer {
             {
             "reportSpec": {
                 "path": [
-                    "java-bugreaper-sandbox.test-report"
+                    "bugreaper-sandbox-core.test-report"
                 ],
                 "executorInfo": {
                     "name": "GitLab CI",
@@ -119,12 +109,4 @@ allureServer {
 
     gitLabCallbackEnable = false // Optional
 
-}
-
-
-allureGitLabCallback {
-    reportUrlString = 'test_override'
-    gitLabMergeRequestNotesEndpointPath {
-        "${-> apiUrl}/projects_override/${-> projectId}/merge_requests/${-> mrId}/notes"
-    }
 }

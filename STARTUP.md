@@ -46,4 +46,24 @@ http://localhost:8080
 ./gradlew :java-test-part1:allureServe
 ```
 
-- see minio UI on http://localhost:9000
+- see artemis UI on http://localhost:9000
+- see report on
+  http://localhost:8080
+
+
+# Brokers (artemis, rabbit, kafka)
+
+- run tests on the local environment:
+
+```shell script
+./gradlew clean :java-test-brokers:test 
+```
+
+- local report (without server)
+```shell script
+./gradlew :java-test-part1:downloadAllure &
+./gradlew :java-test-part1:allureServe
+```
+
+- see artemis UI on http://localhost:8161
+- see rabbit UI on http://localhost:8161

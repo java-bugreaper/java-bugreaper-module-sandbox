@@ -20,6 +20,12 @@ variables:
         - "FALSE"
         - "TRUE"
       description: "Run examples of tests part1"
+    RUN_TESTS_BROKERS:
+      value: "TRUE"
+      options:
+        - "FALSE"
+        - "TRUE"
+      description: "Run examples of tests with brokers"
 
     RUN_TESTS_FAILED_PART1:
       value: "TRUE"
@@ -82,6 +88,32 @@ java-test-part1:
       - ./_output
     expire_in: 1 hour
 
+java-test-brokers:
+  services:
+    - name: docker:24.0.7-dind
+      alias: docker
+      command: ["--tls=false"]
+  variables:
+    TAG: 'all'
+  stage: test
+  script:
+    - docker-compose -f docker-compose-brokers.yml up --force-recreate --exit-code-from autotest-example
+  after_script:
+    - docker-compose -f docker-compose-brokers.yml down --remove-orphans
+    - mkdir -p _output/allure-results
+    - cp java-test-brokers/build/allure-results/* _output/allure-results
+    - chmod -R 777 _output/
+  only: [ web, api, merge_requests, main ]
+  except:
+    variables:
+      - $RUN_TESTS_BROKERS == "FALSE"
+    refs:
+      - tags
+  artifacts:
+    when: always
+    paths:
+      - ./_output
+    expire_in: 1 hour
 
 java-test-part1-failed:
   services:
@@ -117,7 +149,6 @@ java-test-part1-failed:
 tests-report:
   image: frankescobar/allure-docker-service:2.21.0
   stage: report
- # dependencies: [ "java-test", "java-test-dbs", "java-test-messages", "java-test-failed" ]
   script:
     - allure generate --clean _output/allure-results --report-dir _output/allure-report
   after_script:
@@ -131,6 +162,9 @@ tests-report:
       optional: true
       artifacts: true
     - job: java-test-part1
+      optional: true
+      artifacts: true
+    - job: java-test-brokers
       optional: true
       artifacts: true
     - job: java-test-part1-failed

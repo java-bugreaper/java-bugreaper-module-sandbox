@@ -9,7 +9,7 @@
     </appender>
 
     <logger name="io.bugreaper.core" level="INFO"/>
-    <logger name="bugreaper-module-minio" level="INFO"/>
+    <logger name="bugreaper-module-artemis" level="INFO"/>
 
 
     <root level="INFO">

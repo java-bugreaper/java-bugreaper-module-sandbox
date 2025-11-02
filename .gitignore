@@ -14,6 +14,8 @@ gradle/
 /_output/
 
 ### auto-tests local###
+/build/
 /java-test/build/
 /java-test-part1/build/
-/build/
+/java-test-core/build/
+/java-test-brokers/build/

@@ -1,0 +1,124 @@
+plugins {
+    id("java-library")
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    //mavenLocal()
+    mavenCentral()
+}
+
+
+
+dependencies {
+//not need but you cam use for new core
+//    implementation 'io.gitlab.ambu550:bugreaper-core:x.x.x'
+
+    implementation("io.gitlab.ambu550:bugreaper-module-artemis:0.0.2")
+
+    implementation("io.gitlab.ambu550:bugreaper-module-rabbit:0.0.1")
+
+    implementation("org.aeonbits.owner:owner:1.0.12")
+
+}
+
+test {
+    useJUnitPlatform()
+
+    systemProperties(System.getProperties())
+
+    testLogging {
+        events("PASSED", "FAILED", "SKIPPED")
+        showStandardStreams = true
+        exceptionFormat = "full"
+    }
+
+    test.outputs.upToDateWhen { false }
+}
+
+tasks.register("all", Test) {
+    useJUnitPlatform {
+        includeTags("artemis")
+        includeTags("rabbit")
+    }
+
+        systemProperties(System.getProperties())
+
+        testLogging {
+            events("PASSED", "FAILED", "SKIPPED")
+            showStandardStreams = true
+            exceptionFormat = "full"
+        }
+
+        test.outputs.upToDateWhen { false }
+
+}
+
+tasks.register("artemis", Test) {
+    useJUnitPlatform {
+        includeTags("artemis")
+    }
+
+    systemProperties(System.getProperties())
+
+    testLogging {
+        events("PASSED", "FAILED", "SKIPPED")
+        showStandardStreams = true
+        exceptionFormat = "full"
+    }
+
+    test.outputs.upToDateWhen { false }
+}
+
+tasks.register("rabbit", Test) {
+    useJUnitPlatform {
+        includeTags("rabbit")
+    }
+
+    systemProperties(System.getProperties())
+
+    testLogging {
+        events("PASSED", "FAILED", "SKIPPED")
+        showStandardStreams = true
+        exceptionFormat = "full"
+    }
+
+    test.outputs.upToDateWhen { false }
+}
+
+task allureGenReport {
+    dependsOn("allureServerGenerate")
+}
+
+allureServer {
+    relativeResultDir = "build/allure-results"
+    allureServerUrl = "http://localhost:8080/"
+    requestToGeneration = { uuid ->
+        """
+            {
+            "reportSpec": {
+                "path": [
+                    "bugreaper-sandbox-brokers.test-report"
+                ],
+                "executorInfo": {
+                    "name": "GitLab CI",
+                    "type": "GitLab CI",
+                    "buildName": "gitlab pipeline with tests running on [${System.properties['app']}] env",
+                    "buildUrl": "https://gitlab.com/ambu550/java-bugreaper-sandbox/-/pipelines",
+                    "reportName": "java tests"
+                }
+            },
+            "results": ["$uuid"],
+            "deleteResults": true
+            }
+        """
+    }
+
+    gitLabCallbackEnable = false // Optional
+
+}
+

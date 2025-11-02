@@ -1,4 +1,4 @@
-# Brokers examples
+# Examples
 
 - Minio tests
   - interact with brokers/objects

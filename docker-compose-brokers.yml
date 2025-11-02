@@ -1,0 +1,65 @@
+version: '3'
+services:
+
+  artemis:
+    image: apache/activemq-artemis:2.42.0
+    container_name: artemis
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+    #      - "1198:1198"
+    #      - "1199:1199"
+    #      - "9011:9011"
+    volumes:
+      - ./src/test/resources/broker.xml:/var/lib/artemis-instance/etc-override/broker.xml
+    restart: always
+    environment:
+      - TZ=Europe/Kiev
+      #      - ARTEMIS_MIN_MEMORY=128M
+      #      - ENABLE_JMX=true
+      #      - JMX_ALLOW_REMOTE=true
+      #      - JMX_HOSTNAME=0.0.0.0
+      #      - JMX_PORT=1199
+      #      - JMX_RMI_PORT=1198
+      #      - JMX_MNG_PORT=9011
+      - ARTEMIS_USERNAME=artemis
+      - ARTEMIS_PASSWORD=artemis-password
+    healthcheck:
+      test: "curl -f http://localhost:8161/console || exit 1"
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+  rabbit:
+    image: rabbitmq:3.8-management
+    hostname: 'rabbit'
+    container_name: rabbit
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest_user
+      - RABBITMQ_DEFAULT_PASS=guest_pass
+    restart: always
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 20s
+      timeout: 20s
+      retries: 3
+
+  autotest-example:
+    container_name: autotest-example
+    image: gradle:7.6.3-jdk17
+    working_dir: /app
+    environment:
+      - TZ=Europe/Kiev
+      - JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
+      - JAVA_TOOL_OPTIONS=-Dapp=remote
+    volumes:
+      - ${CI_PROJECT_DIR}:/app
+    depends_on:
+      artemis:
+        condition: service_healthy
+      rabbit:
+        condition: service_healthy
+    command: sh -c "gradle clean :java-test-brokers:${TAG} -Dapp=ci"

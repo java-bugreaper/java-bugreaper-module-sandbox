@@ -15,4 +15,5 @@ echo 'startup log success' > java-test/src/test/resources/logs/test.log
 
 docker-compose -f docker-compose-core.yml up -d allure-server
 docker-compose -f docker-compose-part1.yml up -d minio
+docker-compose -f docker-compose-brokers.yml up -d artemis rabbit
 
