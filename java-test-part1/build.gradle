@@ -12,7 +12,7 @@ repositories {
     mavenCentral()
 }
 
-
+def allureVersion = "2.27.0"
 
 dependencies {
 //not need but you cam use for new core
@@ -88,6 +88,17 @@ tasks.register("minio", Test) {
 
 task allureGenReport {
     dependsOn("allureServerGenerate")
+}
+
+allure {
+    version = allureVersion
+    aspectjweaver = true
+    configuration = "implementation"
+    autoconfigure = true
+
+    useJUnit5 {
+        version = allureVersion
+    }
 }
 
 allureServer {
