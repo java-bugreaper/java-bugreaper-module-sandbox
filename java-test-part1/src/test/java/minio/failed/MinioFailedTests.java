@@ -1,6 +1,5 @@
 package minio.failed;
 
-import io.bugreaper.minio.MinioSetupAsIs;
 import io.bugreaper.modules.minio.Minio;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -12,14 +11,11 @@ import static io.bugreaper.core.filereaders.ResourcesFileReader.createResourceFi
 
 @Tag("failed")
 @Epic("[minio-failed] Expected failed minio tests")
-class MinioTestsFailed {
+class MinioFailedTests {
 
-    private final MinioSetupAsIs minio = new MinioSetupAsIs();
+    private final Minio minio = new Minio();
 
     private static final String TEST_BUCKET = "my-failed-bucket";
-    private static final String TEST_FILE = "data/test_file_1.txt";
-    private static final String TEST_FILE_NO_DIR = "test_file_1.txt";
-    private static final String TEST_FILE_LINES = "data/test_file_with_lines.txt";
 
 
     @Test
@@ -87,7 +83,7 @@ class MinioTestsFailed {
 
         createResourceFileWithSize(fileName, expectedBytes);
         minio.uploadFileToBucket(TEST_BUCKET, fileName, "some_name");
-        minio.seeObjectSizeLess(TEST_BUCKET, "some_name", 20);
+        minio.seeObjectSizeIsLessThan(TEST_BUCKET, "some_name", 20);
     }
 
 }

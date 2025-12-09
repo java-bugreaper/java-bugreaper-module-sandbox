@@ -1,0 +1,17 @@
+{
+  "httpRequest": {
+    "method": "GET",
+    "path": "/user/1583"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "body": {
+      "name": "Anna",
+      "email": "anna@com.com",
+      "age": 33,
+      "fee": 100.99,
+      "is_active": true,
+      "note": null
+    }
+  }
+}

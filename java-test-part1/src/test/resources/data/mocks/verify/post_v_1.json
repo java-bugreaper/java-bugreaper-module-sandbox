@@ -1,0 +1,14 @@
+{
+  "httpRequest": {
+    "method": "POST",
+    "path": "/user/1551",
+    "body": {
+      "name": "John",
+      "email": "john@com.com"
+    }
+  },
+  "times": {
+    "atLeast": 1,
+    "atMost": 1
+  }
+}

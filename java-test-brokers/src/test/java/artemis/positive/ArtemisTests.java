@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 
-import static io.bugreaper.core.assertable.stringlist.ListOperators.*;
 import static io.bugreaper.core.filereaders.FileReader.readTextFromFile;
 
 
@@ -33,7 +32,7 @@ class ArtemisTests extends TestArtemisSetup {
         artemis.pushToQueue(TEST_QUEUE, "test_text1");
         artemis.pushToQueue(TEST_QUEUE, "test_text2");
         artemis.grabMessagesFromQueue(TEST_QUEUE)
-                .testInLIst(elementsCountInList(2));
+                .seeListHasExactlyCount(2);
     }
 
     @Test
@@ -55,7 +54,7 @@ class ArtemisTests extends TestArtemisSetup {
         artemis.seeCountMessagesInQueueExactly(TEST_QUEUE, 2);
 
         artemis.grabMessagesFromQueue(TEST_QUEUE)
-                .testInLIst(elementsCountInList(2));
+                .seeListHasExactlyCount(2);
 
         artemis.seeQueueIsEmpty(TEST_QUEUE);
     }
@@ -94,8 +93,8 @@ class ArtemisTests extends TestArtemisSetup {
         artemis.pushToQueue(TEST_QUEUE, "test_text1");
         artemis.pushToQueue(TEST_QUEUE, "test_text2");
         artemis.grabMessagesFromQueue(TEST_QUEUE)
-                .testInLIst(stringContainsInList("test_text2"))
-                .testInLIst(stringContainsInList("text1"));
+                .seeListAnyEquals("test_text2")
+                .seeListAnyContains("text1");
     }
 
     @Test
@@ -111,7 +110,7 @@ class ArtemisTests extends TestArtemisSetup {
 
         artemis.pushToQueue(TEST_QUEUE, "test_text1");
         artemis.pushToQueue(TEST_QUEUE, "test_text2");
-        artemis.seeMessagesContainsText(TEST_QUEUE, "test_text");
+        artemis.seeMessagesContainText(TEST_QUEUE, "test_text");
     }
 
 
@@ -134,7 +133,7 @@ class ArtemisTests extends TestArtemisSetup {
         artemis.pushToQueue(TEST_QUEUE, """
                 {"id":1, "name": "Alex"}""");
 
-        artemis.seeMessagesContainsJson(TEST_QUEUE, """
+        artemis.seeMessagesContainJson(TEST_QUEUE, """
                 {"name": "Alex"}""");
     }
 
@@ -146,7 +145,7 @@ class ArtemisTests extends TestArtemisSetup {
                 {"id":1, "name": "Alex"}""");
 
         artemis.grabMessagesFromQueue(TEST_QUEUE)
-                .testInLIst(isJsonType());
+                .seeListAnyJsonType();
     }
 
     @Test
@@ -157,8 +156,8 @@ class ArtemisTests extends TestArtemisSetup {
         artemis.pushToQueue(TEST_QUEUE, readTextFromFile(path));
 
         artemis.grabMessagesFromQueue(TEST_QUEUE)
-                .testInLIst(jsonEqualsInList(Path.of(path)))
-                .testInLIst(jsonContainsInList(Path.of(path)));
+                .seeListAnyEqualsJson(Path.of(path))
+                .seeListAnyContainsJson(Path.of(path));
     }
 
     @Test
@@ -172,7 +171,7 @@ class ArtemisTests extends TestArtemisSetup {
                         }""");
 
         artemis.grabMessagesFromQueue(TEST_QUEUE)
-                .testInLIst(jsonSchemaCheckInList("""
+                .seeListAnyJsonMatchSchema("""
                         {
                           "type": "object",
                           "properties": {
@@ -181,7 +180,7 @@ class ArtemisTests extends TestArtemisSetup {
                             }
                           },
                           "additionalProperties": false
-                        }"""));
+                        }""");
     }
 
     @Test
@@ -195,7 +194,7 @@ class ArtemisTests extends TestArtemisSetup {
                         }""");
 
         artemis.grabMessagesFromQueue(TEST_QUEUE)
-                .testInLIst(jsonSchemaCheckInList(Path.of("artemisdata/schema_1.json")));
+                .seeListAnyJsonMatchSchema(Path.of("artemisdata/schema_1.json"));
     }
 
     @Test
@@ -227,12 +226,12 @@ class ArtemisTests extends TestArtemisSetup {
         artemis.pushToQueue(TEST_QUEUE,"test_2");
 
         artemis.readMessagesFromQueue(TEST_QUEUE)
-                .testInLIst(stringEqualsInList("test_2"));
+                .seeListAnyEquals("test_2");
 
 
         artemis.readMessagesFromQueue(TEST_QUEUE)
-                .testInLIst(elementsCountInList(2))
-                .testInLIst(stringEqualsInList("test_1"));
+                .seeListHasExactlyCount(2)
+                .seeListAnyEquals("test_1");
 
     }
 
@@ -240,7 +239,7 @@ class ArtemisTests extends TestArtemisSetup {
     void testMessageReadEmptyCheck() {
 
         artemis.readMessagesFromQueue(TEST_QUEUE)
-                .testInLIst(elementsCountInList(0));
+                .seeListHasExactlyCount(0);
     }
 
 

@@ -11,7 +11,7 @@ class RabbitTests extends TestRabbitSetup {
 
         rabbit.pushToQueue(TEST_QUEUE, "test_message");
         rabbit.seeQueueIsNotEmpty(TEST_QUEUE);
-        rabbit.seeCountMessagesInQueueExactly(TEST_QUEUE, 1);
+        rabbit.seeQueueMessageCountIsExactly(TEST_QUEUE, 1);
     }
 
     @Test
@@ -21,7 +21,7 @@ class RabbitTests extends TestRabbitSetup {
         rabbit.pushToQueue(TEST_QUEUE, "test_message");
         rabbit.purgeQueue(TEST_QUEUE);
         rabbit.seeQueueIsEmpty(TEST_QUEUE);
-        rabbit.seeCountMessagesInQueueExactly(TEST_QUEUE, 0);
+        rabbit.seeQueueMessageCountIsExactly(TEST_QUEUE, 0);
     }
 
     @Test
@@ -83,7 +83,7 @@ class RabbitTests extends TestRabbitSetup {
         rabbit.declareQueue(TEST_QUEUE);
         rabbit.pushToQueue(TEST_QUEUE, lastMessage);
 
-        rabbit.seeMessagesContainsText(TEST_QUEUE, "MessageToCheck");
+        rabbit.seeMessagesContainText(TEST_QUEUE, "MessageToCheck");
     }
 
     @Test
@@ -104,7 +104,7 @@ class RabbitTests extends TestRabbitSetup {
         rabbit.declareQueue(TEST_QUEUE);
         rabbit.pushToQueue(TEST_QUEUE, lastMessage);
 
-        rabbit.seeMessagesContainsJson(TEST_QUEUE, expectedPart);
+        rabbit.seeMessagesContainJson(TEST_QUEUE, expectedPart);
     }
 
     @Test
@@ -121,7 +121,7 @@ class RabbitTests extends TestRabbitSetup {
         rabbit.pushToQueue(TEST_QUEUE, lastMessage);
 
         rabbit.seeQueueIsNotEmpty(TEST_QUEUE);
-        rabbit.seeCountMessagesInQueueExactly(TEST_QUEUE, 1);
+        rabbit.seeQueueMessageCountIsExactly(TEST_QUEUE, 1);
 
         rabbit.seeMessagesHaveEqualJson(TEST_QUEUE, lastMessage);
     }

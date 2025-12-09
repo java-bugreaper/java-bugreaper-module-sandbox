@@ -1,12 +1,13 @@
 package minio.positive;
 
-import io.bugreaper.minio.MinioSetupAsIs;
+import io.bugreaper.modules.minio.Minio;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static io.bugreaper.core.assertable.stringlist.ListOperators.*;
+import static io.bugreaper.core.allurereporter.AllureReporter.addStepAttachment;
 import static io.bugreaper.core.filereaders.ResourcesFileReader.createResourceFileWithSize;
 import static io.bugreaper.core.filereaders.ResourcesFileReader.readResourceFile;
 import static helper.ApiExtractor.extractBody;
@@ -14,14 +15,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @Tag("minio")
-@Epic("[minio] Tests as is")
+@Epic("[minio]")
+@Feature("[minio] Tests as is")
 class MinioTests {
 
-    private final MinioSetupAsIs minio = new MinioSetupAsIs();
+    private final Minio minio = new Minio();
 
     private static final String TEST_FILE = "data/test_file_1.txt";
     private static final String TEST_FILE_NO_DIR = "test_file_1.txt";
     private static final String TEST_FILE_LINES = "data/test_file_with_lines.txt";
+
+    @Test
+    @Description("""
+            Show Minio config summary (return String & print log INFO)""")
+    void checkSummary() {
+        addStepAttachment("Minio info", minio.getConfigSummary());
+    }
 
     @Test
     @Description("""
@@ -41,18 +50,18 @@ class MinioTests {
         minio.uploadFileToBucket(bucket, TEST_FILE_LINES, "some_new_dir/object.txt");
 
         minio.seeBucketIsNotEmpty(bucket);
-        minio.seeCountObjectsInBucketGreater(bucket, 1);
-        minio.seeCountObjectsInBucketExactly(bucket, 2);
-        minio.seeCountObjectsInBucketLess(bucket, 3);
+        minio.seeObjectsCountIsGreaterThan(bucket, 1);
+        minio.seeObjectsCountIsExactly(bucket, 2);
+        minio.seeObjectsCountIsLessThan(bucket, 3);
 
         minio.getObjectsList(bucket)
-                .testInLIst(elementsCountInList(2))
-                .testInLIst(stringEqualsInList(TEST_FILE_NO_DIR))
-                .testInLIst(stringContainsInList("some_new_dir/object.txt"));
+                .seeListHasExactlyCount(2)
+                .seeListAnyEquals(TEST_FILE_NO_DIR)
+                .seeListAnyContains("some_new_dir/object.txt");
 
         minio.deleteFilledBucket(bucket);
 
-        minio.seeBucketNotExists(bucket);
+        minio.seeBucketDoesNotExist(bucket);
     }
 
     @Test
@@ -97,8 +106,8 @@ class MinioTests {
         minio.seeObjectExists(bucket, object);
 
         minio.seeObjectSizeExactly(bucket, object, expectedBytes);
-        minio.seeObjectSizeGreater(bucket, object, expectedBytes - 1);
-        minio.seeObjectSizeLess(bucket, object, expectedBytes + 1);
+        minio.seeObjectSizeIsGreaterThan(bucket, object, expectedBytes - 1);
+        minio.seeObjectSizeIsLessThan(bucket, object, expectedBytes + 1);
 
     }
 
@@ -116,7 +125,7 @@ class MinioTests {
         minio.seeObjectExists(bucket, object);
 
         minio.deleteObjectFromBucket(bucket, object);
-        minio.seeObjectNotExists(bucket, object);
+        minio.seeObjectDoesNotExist(bucket, object);
     }
 
 }

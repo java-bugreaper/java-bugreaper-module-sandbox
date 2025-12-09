@@ -54,7 +54,7 @@ services:
     environment:
       - TZ=Europe/Kiev
       - JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
-      - JAVA_TOOL_OPTIONS=-Dapp=remote
+      - JAVA_TOOL_OPTIONS=-DbugreaperEnv=ci
     volumes:
       - ${CI_PROJECT_DIR}:/app
     depends_on:
@@ -62,4 +62,4 @@ services:
         condition: service_healthy
       rabbit:
         condition: service_healthy
-    command: sh -c "gradle clean :java-test-brokers:${TAG} -Dapp=ci"
+    command: sh -c "gradle clean :java-test-brokers:${TAG}"

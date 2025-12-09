@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "required": [
+    "name",
+    "email",
+    "age",
+    "fee",
+    "is_active",
+    "note"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "age": {
+      "type": "integer"
+    },
+    "fee": {
+      "type": "number"
+    },
+    "is_active": {
+      "type": "boolean"
+    },
+    "note": {
+      "type": "null"
+    }
+  }
+}

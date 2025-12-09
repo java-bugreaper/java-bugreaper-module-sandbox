@@ -1,0 +1,13 @@
+{
+  "httpRequest": {
+    "method": "GET",
+    "path": "/user/*.*",
+    "headers": {
+      "!Authorization": ""
+    }
+  },
+  "times": {
+    "atLeast": 1,
+    "atMost": 1
+  }
+}

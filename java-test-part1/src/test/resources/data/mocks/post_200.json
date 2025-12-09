@@ -1,0 +1,9 @@
+{
+  "httpRequest": {
+    "method": "POST"
+  },
+  "httpResponse": {
+    "statusCode": 200
+  },
+  "priority": -1
+}

@@ -1,0 +1,23 @@
+modules:
+  minio:
+    url: http://localhost
+    port: 9000
+    username: admin
+    password: password
+    await: 500 # optional
+    max-upload-file-size: 1024 # optional
+    max-download-file-size: 2048 # optional
+  api:
+    url: http://localhost
+    port: 1080
+#    username: user_1 # optional
+#    password: pass123 # optional
+#    token: my-token # optional more priority than base auth!
+    logging: false # optional
+#    max-response-ms-assert: 2000 # optional
+  mocks:
+    url: http://localhost
+    port: 1080
+    await: 500 # optional
+    logging: false # optional
+    enchanted-report: false # optional

@@ -4,9 +4,6 @@ import io.qameta.allure.Description;
 import minio.TestMinioSetup;
 import org.junit.jupiter.api.Test;
 
-import static io.bugreaper.core.assertable.stringlist.ListOperators.elementsCountInList;
-import static io.bugreaper.core.assertable.stringlist.ListOperators.stringContainsInList;
-
 
 class MyMinioTests extends TestMinioSetup {
 
@@ -36,8 +33,8 @@ class MyMinioTests extends TestMinioSetup {
         myMinio.seeMyObjectExists("test-obj");
 
         myMinio.getMyObjectsList()
-                .testInLIst(elementsCountInList(1))
-                .testInLIst(stringContainsInList("test"));
+                .seeListHasExactlyCount(1)
+                .seeListAnyContains("test");
 
         myMinio.cleanMyBucket();
         myMinio.seeMyBucketIsEmpty();

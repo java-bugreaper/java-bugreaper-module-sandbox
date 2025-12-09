@@ -18,7 +18,7 @@
 
 - local report (without server)
 ```shell script
-./gradlew :java-test-core:downloadAllure &
+./gradlew :java-test-core:downloadAllure &&
 ./gradlew :java-test-core:allureServe
 ```
 
@@ -42,13 +42,13 @@ http://localhost:8080
 
 - local report (without server)
 ```shell script
-./gradlew :java-test-part1:downloadAllure &
+./gradlew :java-test-part1:downloadAllure &&
 ./gradlew :java-test-part1:allureServe
 ```
 
-- see artemis UI on http://localhost:9000
-- see report on
-  http://localhost:8080
+- see mock-server UI http://localhost:1080/mockserver/dashboard
+- see minio UI http://localhost:9001 (admin:password)
+
 
 
 # Brokers (artemis, rabbit, kafka)
@@ -61,9 +61,9 @@ http://localhost:8080
 
 - local report (without server)
 ```shell script
-./gradlew :java-test-part1:downloadAllure &
+./gradlew :java-test-part1:downloadAllure &&
 ./gradlew :java-test-part1:allureServe
 ```
 
-- see artemis UI on http://localhost:8161
-- see rabbit UI on http://localhost:8161
+- see artemis UI on http://localhost:8161 (artemis:artemis-password)
+- see rabbit UI on http://localhost:15672 (guest_user:guest_pass)

@@ -1,0 +1,13 @@
+{
+  "httpRequest": {
+    "method": "POST",
+    "path": "/user/1551"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "body": {
+      "name": "John",
+      "email": "john@com.com"
+    }
+  }
+}

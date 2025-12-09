@@ -47,7 +47,7 @@ java-test-core:
   after_script:
     - docker-compose -f docker-compose-core.yml down --remove-orphans
     - mkdir -p _output/allure-results
-    - cp java-test-core/build/allure-results/* _output/allure-results
+    - cp java-test-core/my-build/allure-results/* _output/allure-results
     - chmod -R 777 _output/
   only: [ web, api, merge_requests, main ]
   except:

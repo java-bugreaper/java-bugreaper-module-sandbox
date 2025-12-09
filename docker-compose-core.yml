@@ -8,7 +8,7 @@ services:
     environment:
       - TZ=Europe/Kiev
       - JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
-      - JAVA_TOOL_OPTIONS=-Dapp=remote
+#      - JAVA_TOOL_OPTIONS=-DbugreaperEnv=ci
     volumes:
       - .:/app # or like this ${CI_PROJECT_DIR}:/app
     command: sh -c "gradle clean :java-test-core:test"
