@@ -1,0 +1,52 @@
+plugins {
+    id("java-library")
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    //mavenLocal()
+    mavenCentral()
+}
+
+def allureVersion = "2.27.0"
+
+dependencies {
+//not need but you cam use for new core
+//    implementation 'io.gitlab.ambu550:bugreaper-core:x.x.x'
+
+    implementation("io.gitlab.ambu550:bugreaper-module-db:0.2.2")
+
+    testImplementation 'org.postgresql:postgresql:42.7.1'
+    testImplementation 'com.oracle.database.jdbc:ojdbc11:23.2.0.0'
+    testImplementation 'com.microsoft.sqlserver:mssql-jdbc:12.4.2.jre11'
+
+}
+
+test {
+    useJUnitPlatform()
+
+    systemProperties(System.getProperties())
+
+    testLogging {
+        events("PASSED", "FAILED", "SKIPPED")
+        showStandardStreams = true
+        exceptionFormat = "full"
+    }
+
+    test.outputs.upToDateWhen { false }
+}
+
+allure {
+    version = allureVersion
+    aspectjweaver = true
+    configuration = "implementation"
+    autoconfigure = true
+
+    useJUnit5 {
+        version = allureVersion
+    }
+}

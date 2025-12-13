@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static io.bugreaper.core.allurereporter.AllureBuilder.reportHtmlCsvCases;
-import static io.bugreaper.core.allurereporter.AllureReporter.attachFromFile;
-import static io.bugreaper.core.allurereporter.AllureReporter.reporter;
+import static io.bugreaper.core.allurereporter.AllureReporter.*;
 import static io.bugreaper.core.filereaders.FileReader.readCsvToArray;
 import static io.bugreaper.core.filereaders.FileReader.readTextFromFile;
 import static io.bugreaper.core.filereaders.ResourcesFileReader.readResourceFile;
@@ -47,5 +46,18 @@ final public class CoreTest {
 
         reporter(path + " = " + ar);
 
+    }
+
+    @Test
+    @Description("Example of allure steps and attachments")
+    void attachmentsCheck() {
+
+        attachFromFile(
+                "With step",
+                "bugreaper.yml");
+
+        attachFromFileNoStep(
+                "No step",
+                "bugreaper.yml");
     }
 }

@@ -26,6 +26,12 @@ variables:
         - "FALSE"
         - "TRUE"
       description: "Run examples of tests with brokers"
+    RUN_TESTS_DB:
+      value: "TRUE"
+      options:
+        - "FALSE"
+        - "TRUE"
+      description: "Run examples of tests with databases"
 
     RUN_TESTS_FAILED_PART1:
       value: "TRUE"
@@ -115,6 +121,31 @@ java-test-brokers:
       - ./_output
     expire_in: 1 hour
 
+java-test-db:
+  services:
+    - name: docker:24.0.7-dind
+      alias: docker
+      command: ["--tls=false"]
+  stage: test
+  script:
+    - docker-compose -f docker-compose-db.yml up --force-recreate --exit-code-from autotest-example
+  after_script:
+    - docker-compose -f docker-compose-db.yml down --remove-orphans
+    - mkdir -p _output/allure-results
+    - cp java-test-db/build/allure-results/* _output/allure-results
+    - chmod -R 777 _output/
+  only: [ web, api, merge_requests, main ]
+  except:
+    variables:
+      - $RUN_TESTS_DB == "FALSE"
+    refs:
+      - tags
+  artifacts:
+    when: always
+    paths:
+      - ./_output
+    expire_in: 1 hour
+
 java-test-part1-failed:
   services:
     - name: docker:24.0.7-dind
@@ -134,7 +165,7 @@ java-test-part1-failed:
   only: [ web, api, merge_requests, main ]
   except:
     variables:
-      - $RUN_TESTS_FAILED == "FALSE"
+      - $RUN_TESTS_FAILED_PART1== "FALSE"
     refs:
       - tags
   allow_failure:
@@ -165,6 +196,9 @@ tests-report:
       optional: true
       artifacts: true
     - job: java-test-brokers
+      optional: true
+      artifacts: true
+    - job: java-test-db
       optional: true
       artifacts: true
     - job: java-test-part1-failed

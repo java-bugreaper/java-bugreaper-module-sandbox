@@ -5,10 +5,11 @@
   "PASSWORD": "pupKin1992",
   "EMAIL": "pupkin@com.com",
   "STATE": false,
+  "IS_ACTIVE": false,
   "DESCRIPTION": "dummy description",
   "ROLES": "manager",
   "AMOUNT": 10.55,
-  "DATA": "[]",
+  "DATA": [],
   "BIRTHDAY": "1999-01-01",
   "CREATE_DATE": "2021-02-02 10:00:00",
   "UPDATE_DATE": "2021-02-02 10:00:00"

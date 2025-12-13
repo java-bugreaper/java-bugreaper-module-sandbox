@@ -1,0 +1,8 @@
+{
+  "ID": 200,
+  "CATEGORY_ID": 1,
+  "NAME": "dummy_category",
+  "PRICE": 175.99,
+  "CREATE_DATE:TIMESTAMP": "2020-01-01 10:00:00",
+  "UPDATE_DATE:TIMESTAMP": "2020-01-01 11:00:00"
+}

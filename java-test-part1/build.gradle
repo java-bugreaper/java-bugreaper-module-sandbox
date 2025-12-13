@@ -8,7 +8,7 @@ java {
 }
 
 repositories {
-    mavenLocal()
+    //mavenLocal()
     mavenCentral()
 }
 
@@ -17,9 +17,9 @@ def allureVersion = "2.27.0"
 dependencies {
 //not need but you cam use for new core
 //    implementation 'io.gitlab.ambu550:bugreaper-core:x.x.x'
-    implementation("io.gitlab.ambu550:bugreaper-module-rest:0.2.0")
-    implementation("io.gitlab.ambu550:bugreaper-module-db:0.2.0")
-    implementation("io.gitlab.ambu550:bugreaper-module-minio:0.2.1")
+    implementation("io.gitlab.ambu550:bugreaper-module-rest:0.2.3")
+    implementation("io.gitlab.ambu550:bugreaper-module-db:0.2.2")
+    implementation("io.gitlab.ambu550:bugreaper-module-minio:0.2.2")
 
     testImplementation 'org.mariadb.jdbc:mariadb-java-client:3.5.6'
 
@@ -42,7 +42,7 @@ test {
 tasks.register("all", Test) {
     useJUnitPlatform {
         includeTags("minio")
-        includeTags("api")
+        includeTags("rest")
         includeTags("db")
     }
 
