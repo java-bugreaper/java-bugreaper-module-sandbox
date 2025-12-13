@@ -1,7 +1,8 @@
 package minio;
 
-import io.bugreaper.minio.MinioSetup;
+import setup.minio.MinioSetup;
 import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,7 +11,8 @@ import org.junit.jupiter.api.Tag;
 
 
 @Tag("minio")
-@Epic("[minio] Tests with pre setup")
+@Epic("[minio]")
+@Feature("[minio] Tests with pre setup")
 public abstract class TestMinioSetup {
 
     protected static final MinioSetup myMinio = MinioSetup.getInstance();

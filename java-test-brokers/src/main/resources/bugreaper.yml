@@ -1,0 +1,19 @@
+modules:
+  artemis:
+    url: tcp://localhost
+    port: 61616
+    username: artemis
+    password: artemis-password
+    await: 500 # optional
+    max-consumed-messages: 5 # optional
+    max-consumer-timeout: 1000 # optional
+    max-call-timeout: 2000 # optional
+  rabbit:
+    host: localhost
+    port: 5672
+    username: guest_user
+    password: guest_pass
+    await: 500 # optional
+    max-consumed-messages: 5 # optional
+    max-consumer-timeout: 1000 # optional
+

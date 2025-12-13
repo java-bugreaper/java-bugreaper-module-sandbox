@@ -4,12 +4,14 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>utf-8</charset>
-            <Pattern>%d [%thread][%-5level] %class %method %msg%n</Pattern>
+            <Pattern>%d [%thread][%-5level][%-10logger{0}] %class %method: %msg%n</Pattern>
         </encoder>
     </appender>
 
     <logger name="io.bugreaper.core" level="INFO"/>
     <logger name="bugreaper-module-artemis" level="INFO"/>
+    <logger name="bugreaper-module-rabbit" level="INFO"/>
+    <logger name="bugreaper-module-kafka" level="INFO"/>
 
 
     <root level="INFO">

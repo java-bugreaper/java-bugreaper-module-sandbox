@@ -18,11 +18,9 @@ dependencies {
 //not need but you cam use for new core
 //    implementation 'io.gitlab.ambu550:bugreaper-core:x.x.x'
 
-    implementation("io.gitlab.ambu550:bugreaper-module-artemis:0.0.2")
+    implementation("io.gitlab.ambu550:bugreaper-module-artemis:0.2.1")
 
-    implementation("io.gitlab.ambu550:bugreaper-module-rabbit:0.0.1")
-
-    implementation("org.aeonbits.owner:owner:1.0.12")
+    implementation("io.gitlab.ambu550:bugreaper-module-rabbit:0.2.1")
 
 }
 

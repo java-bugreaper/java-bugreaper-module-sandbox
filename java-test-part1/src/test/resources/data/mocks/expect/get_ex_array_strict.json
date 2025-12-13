@@ -1,0 +1,20 @@
+{
+  "httpRequest": {
+    "method": "GET",
+    "path": "/user/1584"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "body": {
+      "id": "1",
+      "list":[
+        {
+          "num": 1
+        },
+        {
+          "num": 2
+        }
+      ]
+    }
+  }
+}

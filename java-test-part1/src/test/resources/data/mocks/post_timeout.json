@@ -1,0 +1,13 @@
+{
+  "httpRequest": {
+    "method": "POST"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "delay": {
+      "timeUnit": "MILLISECONDS",
+      "value": 700
+    }
+  },
+  "priority": -1
+}

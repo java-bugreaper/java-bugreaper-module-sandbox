@@ -1,5 +1,6 @@
 package core;
 
+import io.bugreaper.core.config.YamlUtils;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static io.bugreaper.core.allurereporter.AllureBuilder.reportHtmlCsvCases;
+import static io.bugreaper.core.allurereporter.AllureReporter.attachFromFile;
+import static io.bugreaper.core.allurereporter.AllureReporter.reporter;
 import static io.bugreaper.core.filereaders.FileReader.readCsvToArray;
 import static io.bugreaper.core.filereaders.FileReader.readTextFromFile;
 import static io.bugreaper.core.filereaders.ResourcesFileReader.readResourceFile;
@@ -26,9 +29,23 @@ final public class CoreTest {
                 "Test cases example",
                 readCsvToArray("data/csv/test_csv.csv"));
 
-        Allure.addAttachment("file source", "text/csv", readTextFromFile("data/csv/test_csv.csv"));
-        Allure.addAttachment("file source", "text/csv", readResourceFile("data/csv/test_csv.csv"));
+        Allure.addAttachment("file source v1", "text/csv", readTextFromFile("data/csv/test_csv.csv"));
+        Allure.addAttachment("file source v2", "text/csv", readResourceFile("data/csv/test_csv.csv"));
     }
 
+    @Test
+    @Description("Read custom config field")
+    void customConfigFields() {
 
+        String path = "custom-module.v1.test";
+
+        attachFromFile(
+                "bugreaper config",
+                "bugreaper.yml");
+
+        String ar = YamlUtils.getStringValueByPath(path);
+
+        reporter(path + " = " + ar);
+
+    }
 }

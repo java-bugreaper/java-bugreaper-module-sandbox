@@ -17,5 +17,9 @@ gradle/
 /build/
 /java-test/build/
 /java-test-part1/build/
+
 /java-test-core/build/
+/java-test-core/my-build/
+
 /java-test-brokers/build/
+
