@@ -21,3 +21,9 @@ modules:
     await: 500 # optional
     logging: false # optional
     enchanted-report: false # optional
+  db:
+    mariadb:
+      url: 'jdbc:mariadb://mariadb:3306'
+      username: MARIA_SCHEMA
+      password: maria_pass
+      await: 1000 # optional

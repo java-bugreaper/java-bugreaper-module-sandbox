@@ -59,7 +59,7 @@ services:
       minio:
         condition: service_healthy
       mock-server:
-        condition: service_healthy
+        condition: service_started
       mariadb:
         condition: service_healthy
     command: sh -c "gradle clean :java-test-part1:${TAG} -DbugreaperEnv=ci"

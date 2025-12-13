@@ -35,9 +35,18 @@ http://localhost:8080
 # PART 1 (base)
 
 - run tests on the local environment:
-
 ```shell script
 ./gradlew clean :java-test-part1:test 
+```
+
+- run only positive tests
+```shell script
+./gradlew clean :java-test-part1:all 
+```
+
+- run only expected failed tests
+```shell script
+./gradlew clean :java-test-part1:failed 
 ```
 
 - local report (without server)
