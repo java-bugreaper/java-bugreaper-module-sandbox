@@ -58,7 +58,7 @@ http://localhost:8080
 
 - see mock-server UI http://localhost:1080/mockserver/dashboard
 - see minio UI http://localhost:9001 (admin:password)
-- connect to mariaDb localhost:3306 (MARIA_SCHEMA:maria_pass)
+- connect to mariaDb localhost:3306 (MARIA_SCHEMA:maria_pass MARIA_SCHEMA)
 
 ***
 
@@ -95,6 +95,7 @@ http://localhost:8080
 ./gradlew :java-test-db:allureServe
 ```
 
-- connect to PostgreSql localhost:5432 (alex:12345)
-- connect to MsSql localhost:1433 (SA:mssql_pass1234567)
-- connect to OracleDb localhost:1521 (ADMIN:ADMIN)
+- connect to PostgreSql localhost:5432 (alex:12345 public)
+- connect to MsSql localhost:1433 (SA:mssql_pass1234567 test_schema)
+- connect to OracleDb localhost:1521 (ADMIN:ADMIN ORACLE_SCHEMA)
+- connect to MySql localhost:3308 (mysql_user:mysql_pass MYSQL_SCHEMA)

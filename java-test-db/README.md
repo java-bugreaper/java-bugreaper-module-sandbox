@@ -18,3 +18,8 @@
     - Insert from templates & merged test data
   - Asserts (record exist/notExist, table empty/notEmpty)
   - specific date/dateTime insert & assert 
+
+- [db] Mysql tests
+  - interact with database
+    - Insert from templates & merged test data
+  - Asserts (record exist/notExist, table empty/notEmpty)

@@ -9,7 +9,6 @@ services:
     # better move to .env
     environment:
       - TZ=Europe/Kyiv
-      - ORACLE_PASSWORD=Oracle_secret1
       - POSTGRES_USER=alex
       - POSTGRES_PASSWORD=12345
       - POSTGRES_DB=public
@@ -61,6 +60,26 @@ services:
       timeout: 5s
       retries: 10
 
+  mysql:
+    image: mysql:8.0.21
+    container_name: mysql
+    volumes:
+      - ./configs/mysql-db/01-mysql-schema.sql:/docker-entrypoint-initdb.d/01-dump.sql
+    environment:
+      TZ: "Europe/Kiev"
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_DATABASE: MYSQL_SCHEMA
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_USER: mysql_user
+      MYSQL_PASSWORD: mysql_pass
+    ports:
+      - "3308:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   autotest-example:
     container_name: autotest-example
     image: gradle:7.6.3-jdk17
@@ -77,5 +96,7 @@ services:
       mssql:
         condition: service_healthy
       oracle:
+        condition: service_healthy
+      mysql:
         condition: service_healthy
     command: sh -c "gradle clean :java-test-db:test"

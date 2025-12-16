@@ -16,3 +16,8 @@ modules:
       username: 'ADMIN'
       password: 'ADMIN'
       await: 500 # optional
+    mysql:
+      url: 'jdbc:mysql://localhost:3308?allowPublicKeyRetrieval=true&useSSL=false'
+      username: mysql_user
+      password: mysql_pass
+      #await: 600 # optional
