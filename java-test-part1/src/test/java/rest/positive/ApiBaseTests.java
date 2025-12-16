@@ -4,6 +4,7 @@ import io.bugreaper.modules.api.Api;
 import io.bugreaper.modules.mocks.MocksApi;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -15,7 +16,8 @@ import static io.bugreaper.core.allurereporter.AllureReporter.addStepAttachment;
 import static io.bugreaper.core.mappers.StringMappers.stringMapper;
 
 @Tag("rest")
-@Epic("[rest] Api & Mocks tests as is")
+@Epic("[rest] Tests for API & mocks")
+@Feature("[rest] Api & Mocks tests as is")
 class ApiBaseTests {
 
     // simple use -> get all setup from config use methods as is
