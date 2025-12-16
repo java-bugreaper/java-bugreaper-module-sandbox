@@ -9,9 +9,15 @@
     </appender>
 
     <logger name="io.bugreaper.core" level="INFO"/>
-    <logger name="bugreaper-module-artemis" level="INFO"/>
-    <logger name="bugreaper-module-rabbit" level="INFO"/>
-    <logger name="bugreaper-module-kafka" level="INFO"/>
+
+    <logger name="bugreaper-module-minio" level="INFO"/>
+
+    <logger name="bugreaper-module-api" level="INFO"/>
+    <logger name="bugreaper-module-mocks" level="INFO"/>
+
+    <logger name="MockEnchantedReport" level="INFO"/>
+
+    <logger name="bugreaper-module-db" level="INFO"/>
 
 
     <root level="INFO">

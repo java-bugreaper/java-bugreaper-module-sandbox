@@ -2,13 +2,13 @@ version: '3'
 services:
 
   postgresql:
-    image: postgres:14.1
+    image: postgres:18.1
     container_name: postgresql
     volumes:
       - ${CI_PROJECT_DIR}/configs/postre-db/01-schema.sql:/docker-entrypoint-initdb.d/01-dump.sql
     # better move to .env
     environment:
-      - TZ=Europe/Kiev
+      - TZ=Europe/Kyiv
       - ORACLE_PASSWORD=Oracle_secret1
       - POSTGRES_USER=alex
       - POSTGRES_PASSWORD=12345
@@ -31,21 +31,27 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=mssql_pass1234567
+      - MSSQL_PID=Developer
     ports:
       - "1433:1433"
     healthcheck:
-      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-Usa", "-Pmssql_pass1234567", "-Q", "select 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -Q \"SELECT 1\" -b -o /dev/null || exit 1"
+        ]
       interval: 10s
       timeout: 5s
       retries: 5
 
+#TODO update to 23+
   oracle:
     image: gvenzl/oracle-xe:21.3.0-slim
     container_name: oracle
     volumes:
       - ${CI_PROJECT_DIR}/configs/oracle-db/01-oracle-schema.sql:/container-entrypoint-initdb.d/01-dump.sql
     environment:
-      - TZ=Europe/Kiev
+      - TZ=Europe/Kyiv
       - ORACLE_PASSWORD=Oracle_secret1
     ports:
       - "1521:1521"
@@ -53,14 +59,14 @@ services:
       test: [ "CMD-SHELL", "healthcheck.sh" ]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
 
   autotest-example:
     container_name: autotest-example
     image: gradle:7.6.3-jdk17
     working_dir: /app
     environment:
-      - TZ=Europe/Kiev
+      - TZ=Europe/Kyiv
       - JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
       - JAVA_TOOL_OPTIONS=-DbugreaperEnv=ci
     volumes:
@@ -72,4 +78,4 @@ services:
         condition: service_healthy
       oracle:
         condition: service_healthy
-    command: sh -c "gradle clean :java-test-dbs:${TAG}"
+    command: sh -c "gradle clean :java-test-db:test"

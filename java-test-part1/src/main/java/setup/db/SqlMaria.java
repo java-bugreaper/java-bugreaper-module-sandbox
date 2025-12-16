@@ -17,6 +17,9 @@ public class SqlMaria {
         jdbc = new MariaDb();
     }
 
+    // Good practice to use Singleton
+    // it`s just reuse created object
+    // and don`t create multiple objects - every with own hikariCP pools
     public static SqlMaria getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new SqlMaria();
@@ -37,6 +40,7 @@ public class SqlMaria {
                 {"PASSWORD", "pupKin1992"},
                 {"EMAIL", "pupkin@com.com"},
                 {"STATE", false},
+                {"IS_ACTIVE", false},
                 {"DESCRIPTION", "dummy description"},
                 {"ROLES", "manager"},
                 {"AMOUNT", 10.55},
@@ -84,7 +88,7 @@ public class SqlMaria {
     }
 
     public void recordUsers_exist(String conditionsString) {
-        jdbc.seeRecordExistsInTable
+        jdbc.seeRecordExistsInTableCustom
                 (SCHEMA + ".USERS", conditionsString);
     }
 

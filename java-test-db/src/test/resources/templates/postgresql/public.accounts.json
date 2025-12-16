@@ -1,0 +1,11 @@
+{
+  "user_id": 1,
+  "username": "Alex",
+  "password": "123",
+  "email": "alex@a.com",
+  "fee": null,
+  "is_active": false,
+  "birthday": "1999-01-01",
+  "created_on": "2020-01-01 10:00:05",
+  "last_login": "2021-01-31"
+}

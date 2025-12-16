@@ -7,7 +7,16 @@
   - interact with brokers/objects
   - upload/download/read/share objects
 
+- [db] MariaDb tests
+  - interact with database
+    - Insert from templates & merged test data (json/Objects dataProviders)
+  - Asserts (record exist/notExist, table empty/notEmpty)
+    - Specific data check 
+      - JSON_CONTAINS, JSON_EQUALS, REGEX
 
-
-- Expected FAILED/BROKEN tests for example
+- Expected FAILED/BROKEN
+  - MockEnchantedReport on FAIL example (difference)
+  - Database tests fails (awaiting, show data from table)
+  - tests (api, minio, db,  mocks) for example
+- MockEnchantedReport on FAIL example
 

@@ -5,6 +5,7 @@ import io.qameta.allure.Step;
 import org.junit.jupiter.api.*;
 import setup.db.SqlMaria;
 
+
 import static io.bugreaper.core.allurereporter.AllureReporter.reporter;
 
 
@@ -30,7 +31,7 @@ public abstract class TestsSetupDB {
     @Step("Logs after tests")
     public void getLogs() {
         reporter("Here you can get some logs or other info");
-        //SHOW table
+        //SHOW table //TODO
     }
 
 }
