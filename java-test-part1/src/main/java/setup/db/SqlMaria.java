@@ -1,7 +1,7 @@
 package setup.db;
 
 
-import io.bugreaper.modules.db.MariaDb;
+import net.bugreaper.modules.db.MariaDb;
 import io.qameta.allure.Step;
 
 

@@ -1,12 +1,12 @@
 package setup.mocks;
 
-import io.bugreaper.modules.mocks.MocksApi;
+import net.bugreaper.modules.mocks.MocksApi;
 import io.qameta.allure.Param;
 import io.qameta.allure.Step;
 
 import java.util.Map;
 
-import static io.bugreaper.core.mappers.StringMappers.stringMapper;
+import static net.bugreaper.core.mappers.StringMappers.stringMapper;
 import static io.qameta.allure.model.Parameter.Mode.HIDDEN;
 
 public class MockVerify extends MocksApi {

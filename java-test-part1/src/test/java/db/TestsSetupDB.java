@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import setup.db.SqlMaria;
 
 
-import static io.bugreaper.core.allurereporter.AllureReporter.reporter;
+import static net.bugreaper.core.allurereporter.AllureReporter.reporter;
 
 
 @Tag("db")

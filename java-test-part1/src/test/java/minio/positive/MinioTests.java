@@ -1,15 +1,15 @@
 package minio.positive;
 
-import io.bugreaper.modules.minio.Minio;
+import net.bugreaper.modules.minio.Minio;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static io.bugreaper.core.allurereporter.AllureReporter.addStepAttachment;
-import static io.bugreaper.core.filereaders.ResourcesFileReader.createResourceFileWithSize;
-import static io.bugreaper.core.filereaders.ResourcesFileReader.readResourceFile;
+import static net.bugreaper.core.allurereporter.AllureReporter.addStepAttachment;
+import static net.bugreaper.core.filereaders.ResourcesFileReader.createResourceFileWithSize;
+import static net.bugreaper.core.filereaders.ResourcesFileReader.readResourceFile;
 import static helper.ApiExtractor.extractBody;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

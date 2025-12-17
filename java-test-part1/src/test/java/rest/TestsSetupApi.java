@@ -1,7 +1,7 @@
 package rest;
 
-import io.bugreaper.modules.api.Api;
-import io.bugreaper.modules.mocks.MocksApi;
+import net.bugreaper.modules.api.Api;
+import net.bugreaper.modules.mocks.MocksApi;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;

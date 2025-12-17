@@ -1,7 +1,7 @@
 package db;
 
 
-import io.bugreaper.modules.db.OracleDb;
+import net.bugreaper.modules.db.OracleDb;
 import io.qameta.allure.Step;
 
 

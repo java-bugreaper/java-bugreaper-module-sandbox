@@ -4,7 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.*;
 
-import static io.bugreaper.core.allurereporter.AllureReporter.reporter;
+import static net.bugreaper.core.allurereporter.AllureReporter.reporter;
 
 
 @Tag("db")

@@ -5,7 +5,7 @@ import io.qameta.allure.*;
 import io.qameta.allure.model.Parameter;
 import org.junit.jupiter.api.Test;
 
-import static io.bugreaper.core.allurereporter.AllureReporter.addStepAttachment;
+import static net.bugreaper.core.allurereporter.AllureReporter.addStepAttachment;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 

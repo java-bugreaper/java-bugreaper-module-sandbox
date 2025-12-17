@@ -16,9 +16,9 @@ def allureVersion = "2.27.0"
 
 dependencies {
 //not need but you cam use for new core
-//    implementation 'io.gitlab.ambu550:bugreaper-core:x.x.x'
+//    implementation 'net.bugreaper:-core:x.x.x'
 
-    implementation("io.gitlab.ambu550:bugreaper-module-db:0.2.3")
+    implementation("net.bugreaper:module-db:1.0.0")
 
     testImplementation 'org.postgresql:postgresql:42.7.1'
     testImplementation 'com.oracle.database.jdbc:ojdbc11:23.2.0.0'

@@ -1,7 +1,7 @@
 package rest.positive;
 
-import io.bugreaper.modules.api.Api;
-import io.bugreaper.modules.mocks.MocksApi;
+import net.bugreaper.modules.api.Api;
+import net.bugreaper.modules.mocks.MocksApi;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -12,8 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static io.bugreaper.core.allurereporter.AllureReporter.addStepAttachment;
-import static io.bugreaper.core.mappers.StringMappers.stringMapper;
+import static net.bugreaper.core.allurereporter.AllureReporter.addStepAttachment;
+import static net.bugreaper.core.mappers.StringMappers.stringMapper;
 
 @Tag("rest")
 @Epic("[rest] Tests for API & mocks")

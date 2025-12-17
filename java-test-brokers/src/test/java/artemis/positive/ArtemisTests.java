@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 
-import static io.bugreaper.core.filereaders.FileReader.readTextFromFile;
+import static net.bugreaper.core.filereaders.FileReader.readTextFromFile;
 
 
 class ArtemisTests extends TestArtemisSetup {

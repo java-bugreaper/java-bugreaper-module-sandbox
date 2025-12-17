@@ -1,7 +1,7 @@
 package setup.minio;
 
-import io.bugreaper.core.assertable.AssertableStringList;
-import io.bugreaper.modules.minio.Minio;
+import net.bugreaper.core.assertable.AssertableStringList;
+import net.bugreaper.modules.minio.Minio;
 
 public class MinioSetup {
 

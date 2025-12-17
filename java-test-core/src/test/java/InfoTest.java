@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
-import static io.bugreaper.core.allurereporter.AllureReporter.attachFromFile;
+import static net.bugreaper.core.allurereporter.AllureReporter.attachFromFile;
 
 @Epic("[info] Info")
 @Order(1)

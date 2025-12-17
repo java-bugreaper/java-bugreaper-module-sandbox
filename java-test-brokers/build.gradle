@@ -16,11 +16,11 @@ def allureVersion = "2.27.0"
 
 dependencies {
 //not need but you cam use for new core
-//    implementation 'io.gitlab.ambu550:bugreaper-core:x.x.x'
+//    implementation 'net.bugreaper:core:x.x.x'
 
-    implementation("io.gitlab.ambu550:bugreaper-module-artemis:0.2.2")
+    implementation("net.bugreaper:module-artemis:1.0.0")
 
-    implementation("io.gitlab.ambu550:bugreaper-module-rabbit:0.2.2")
+    implementation("net.bugreaper:module-rabbit:1.0.0")
 
 }
 

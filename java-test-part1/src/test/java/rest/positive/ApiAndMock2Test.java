@@ -5,7 +5,7 @@ import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Test;
 import rest.TestsSetupApi;
 
-import static io.bugreaper.core.allurereporter.AllureReporter.reporter;
+import static net.bugreaper.core.allurereporter.AllureReporter.reporter;
 
 
 @Feature("[rest] API & Mock checks 2")
