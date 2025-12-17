@@ -1,7 +1,7 @@
 package db.positive;
 
 import db.TestsSetupDB;
-import io.bugreaper.modules.db.MariaDb;
+import net.bugreaper.modules.db.MariaDb;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Test;

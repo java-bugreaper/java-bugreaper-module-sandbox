@@ -1,6 +1,6 @@
 package rabbit;
 
-import io.bugreaper.modules.rabbit.Rabbit;
+import net.bugreaper.modules.rabbit.Rabbit;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.BeforeAll;

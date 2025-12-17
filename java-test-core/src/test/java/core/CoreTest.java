@@ -1,6 +1,6 @@
 package core;
 
-import io.bugreaper.core.config.YamlUtils;
+import net.bugreaper.core.config.YamlUtils;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -9,11 +9,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static io.bugreaper.core.allurereporter.AllureBuilder.reportHtmlCsvCases;
-import static io.bugreaper.core.allurereporter.AllureReporter.*;
-import static io.bugreaper.core.filereaders.FileReader.readCsvToArray;
-import static io.bugreaper.core.filereaders.FileReader.readTextFromFile;
-import static io.bugreaper.core.filereaders.ResourcesFileReader.readResourceFile;
+import static net.bugreaper.core.allurereporter.AllureBuilder.reportHtmlCsvCases;
+import static net.bugreaper.core.allurereporter.AllureReporter.*;
+import static net.bugreaper.core.filereaders.FileReader.readCsvToArray;
+import static net.bugreaper.core.filereaders.FileReader.readTextFromFile;
+import static net.bugreaper.core.filereaders.ResourcesFileReader.readResourceFile;
 
 @Tag("core")
 @Epic("[core] Tests core only")

@@ -1,6 +1,6 @@
 package artemis;
 
-import io.bugreaper.modules.artemis.Artemis;
+import net.bugreaper.modules.artemis.Artemis;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.BeforeEach;

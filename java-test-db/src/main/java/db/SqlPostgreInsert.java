@@ -1,8 +1,8 @@
 package db;
 
 
-import io.bugreaper.core.config.YamlUtils;
-import io.bugreaper.modules.db.PostgreSQL;
+import net.bugreaper.core.config.YamlUtils;
+import net.bugreaper.modules.db.PostgreSQL;
 import io.qameta.allure.Step;
 
 import java.util.TimeZone;

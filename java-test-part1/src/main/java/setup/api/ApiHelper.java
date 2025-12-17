@@ -1,12 +1,12 @@
 package setup.api;
 
-import io.bugreaper.modules.api.Api;
-import io.bugreaper.modules.api.assertable.AssertableResponse;
+import net.bugreaper.modules.api.Api;
+import net.bugreaper.modules.api.assertable.AssertableResponse;
 import io.qameta.allure.Step;
 
 import java.util.Map;
 
-import static io.bugreaper.core.mappers.StringMappers.stringMapper;
+import static net.bugreaper.core.mappers.StringMappers.stringMapper;
 import static io.restassured.http.ContentType.*;
 
 

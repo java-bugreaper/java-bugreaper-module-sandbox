@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static io.bugreaper.core.allurereporter.AllureReporter.reporter;
+import static net.bugreaper.core.allurereporter.AllureReporter.reporter;
 
 @Tag("db")
 @Epic("[db] Tests for DataBases")

@@ -1,12 +1,12 @@
 package minio.failed;
 
-import io.bugreaper.modules.minio.Minio;
+import net.bugreaper.modules.minio.Minio;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static io.bugreaper.core.filereaders.ResourcesFileReader.createResourceFileWithSize;
+import static net.bugreaper.core.filereaders.ResourcesFileReader.createResourceFileWithSize;
 
 
 @Tag("failed")

@@ -1,7 +1,7 @@
 package db;
 
 
-import io.bugreaper.modules.db.MySQL;
+import net.bugreaper.modules.db.MySQL;
 import io.qameta.allure.Step;
 
 

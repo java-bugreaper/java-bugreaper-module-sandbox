@@ -1,6 +1,6 @@
 package rest.failed;
 
-import io.bugreaper.modules.mocks.MocksApi;
+import net.bugreaper.modules.mocks.MocksApi;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.*;
