@@ -1,8 +1,8 @@
-# Base examples
+# CORE tests examples
 
 ### Core methods that can be used from box
 
-- Files operations (in test resources):
+- Files operations (in test resources): (in progress)
   - create/delete/read to string
   - create with specific size
   - get file size
