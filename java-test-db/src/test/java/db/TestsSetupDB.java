@@ -5,6 +5,8 @@ import io.qameta.allure.Step;
 import org.junit.jupiter.api.*;
 
 import static net.bugreaper.core.allurereporter.AllureReporter.reporter;
+import static net.bugreaper.core.generators.DateTimeGenerator.generateDate;
+import static net.bugreaper.core.generators.DateTimeGenerator.generateDateTime;
 
 
 @Tag("db")
@@ -20,8 +22,9 @@ public abstract class TestsSetupDB {
     protected final SqlMs msSql = SqlMs.getInstance();
     protected final SqlOracle sqlOracle = SqlOracle.getInstance();
 
-    protected static final String DATE_TIME_TEST = "2020-01-02 10:01:00";
-    protected static final String DATE_TEST = "2020-01-01";
+    protected static final String DATE_TIME_TEST = generateDateTime("-1M2d4H");
+    protected static final String DATE_TIME_TEST2 = generateDateTime("+1y2d", "11:10:10");
+    protected static final String DATE_TEST = generateDate("-1y+2d");
 
 
     @BeforeEach

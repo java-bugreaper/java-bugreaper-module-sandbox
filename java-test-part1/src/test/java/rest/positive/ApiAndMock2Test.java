@@ -138,11 +138,23 @@ class ApiAndMock2Test extends TestsSetupApi {
 
         mockCreate.getUser_error(".*.", 500);
 
-        var message =api.getUser("2")
+        String message = api.getUser("1")
                 .seeResponseCodeIs(500)
-                .grabDataFromResponseByPath("error");
+                .grabStringFromResponseByPath("error");
 
-        reporter(message);
+        reporter("Grab String: " + message);
+
+        String messageId = api.getUser("2")
+                .seeResponseCodeIs(500)
+                .grabStringFromResponseByPath("errorId");
+
+        reporter("Grab like String: " + messageId);
+
+        var messageIdInt= api.getUser("2")
+                .seeResponseCodeIs(500)
+                .grabDataFromResponseByPath("errorId");
+
+        reporter("Grab like Integer (convert to String or concatenate for report): " + messageIdInt);
     }
 
     @Test

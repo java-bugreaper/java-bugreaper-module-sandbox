@@ -23,3 +23,8 @@
   - interact with database
     - Insert from templates & merged test data
   - Asserts (record exist/notExist, table empty/notEmpty)
+
+- [db] Custom(Clickhouse) tests (only basic features)
+  - interact with database
+    - Insert from templates & merged test data
+  - Asserts (record exist/notExist, table empty/notEmpty)

@@ -21,3 +21,8 @@ modules:
       username: mysql_user
       password: mysql_pass
       #await: 600 # optional
+    clickhouse: # custom db
+      url: 'jdbc:clickhouse://clickhouse:8123/myschema'
+      username: default
+      password: password
+      await: 1000 # optional
