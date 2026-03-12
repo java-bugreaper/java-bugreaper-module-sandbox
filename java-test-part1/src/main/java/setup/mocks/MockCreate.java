@@ -97,7 +97,8 @@ public class MockCreate {
                             "httpResponse": {
                                 "statusCode": ${statusCode},
                                 "body": {
-                                    "error": "Dummy Get error"
+                                    "error": "Dummy Get error",
+                                    "errorId": 112
                                 }
                             }
                         }""",

@@ -1,16 +1,38 @@
 package db.positive;
 
-import db.TestsSetupDB;
+import io.qameta.allure.Step;
 import net.bugreaper.modules.db.MariaDb;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS) //To call connection once!
 @Feature("Db checks: MariaDb vs simple data provide")
-class MariaDbV2Test extends TestsSetupDB {
+class MariaDbV2Test {
 
-    MariaDb maria = new MariaDb();
+    //private static final MariaDb maria = new MariaDb();
+    private final MariaDb maria = new MariaDb();
+
+    @BeforeEach
+    @Step("Clear test data")
+    public void clean() {
+        maria.truncateTable("MARIA_SCHEMA.USERS");
+    }
+
+    @Test
+    @Description("""
+            Show filed and empty table data""")
+    void showTableDataTest() {
+
+        maria.showDataFromTable("MARIA_SCHEMA.CATEGORY_DICT");
+
+        maria.showDataFromTable("MARIA_SCHEMA.USERS");
+    }
+
 
     @Test
     @Description("""
@@ -32,7 +54,7 @@ class MariaDbV2Test extends TestsSetupDB {
                         {"STATE", true},
                         {"IS_ACTIVE", false},
                         {"AMOUNT", amount},
-                        {"DATA",   """
+                        {"DATA", """
                                     {
                                      "id": 1,
                                      "text": "test"
@@ -98,5 +120,28 @@ class MariaDbV2Test extends TestsSetupDB {
                             "DESCRIPTION": null
                         }""");
 
+    }
+
+    @Test
+    @Description("""
+            Check assert failed with custom and global await""")
+    void checkCustomAwait() {
+
+        maria.insertIntoTable("MARIA_SCHEMA.USERS",
+                new Object[][]{
+                        {"ID", 1},
+                });
+
+
+        assertThrows(AssertionError.class, () -> maria.withAwaitMs(500).seeRecordExistsInTable("MARIA_SCHEMA.USERS",
+                new Object[][]{
+                        {"ID", 888},
+                }));
+
+        assertThrows(AssertionError.class, () ->
+                maria.seeRecordExistsInTable("MARIA_SCHEMA.USERS",
+                        new Object[][]{
+                                {"ID", 999},
+                        }));
     }
 }

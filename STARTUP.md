@@ -72,8 +72,8 @@ http://localhost:8080
 
 - local report (without server)
 ```shell script
-./gradlew :java-test-part1:downloadAllure &&
-./gradlew :java-test-part1:allureServe
+./gradlew :java-test-brokers:downloadAllure &&
+./gradlew :java-test-brokers:allureServe
 ```
 
 - see artemis UI on http://localhost:8161 (artemis:artemis-password)
@@ -99,3 +99,4 @@ http://localhost:8080
 - connect to MsSql localhost:1433 (SA:mssql_pass1234567 test_schema)
 - connect to OracleDb localhost:1521 (ADMIN:ADMIN ORACLE_SCHEMA)
 - connect to MySql localhost:3308 (mysql_user:mysql_pass MYSQL_SCHEMA)
+- connect to Clickhouse localhost:3308 (default:password myschema)

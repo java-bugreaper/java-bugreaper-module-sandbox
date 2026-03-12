@@ -2,10 +2,8 @@ package db.positive;
 
 import db.TestsSetupDB;
 import io.qameta.allure.*;
-import io.qameta.allure.model.Parameter;
 import org.junit.jupiter.api.Test;
 
-import static net.bugreaper.core.allurereporter.AllureReporter.addStepAttachment;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -23,7 +21,7 @@ class OracleDbTest extends TestsSetupDB {
         sqlOracle.insertIntoGoods(new Object[][]{
                 {"CATEGORY_ID", 1556},
                 {"NAME", "MAIN category"},
-                {"UPDATE_DATE", DATE_TIME_TEST, "TIMESTAMP"},
+                {"UPDATE_DATE", DATE_TIME_TEST2, "TIMESTAMP"},
         });
 
         sqlOracle.recordGoods_exist(new Object[][]{
@@ -41,23 +39,23 @@ class OracleDbTest extends TestsSetupDB {
 
         sqlOracle.insertIntoGoodsV2(
                 """
-                {
-                  "CATEGORY_ID": 1556,
-                  "NAME": "MAIN category",
-                  "PRICE": 299.99,
-                  "CREATE_DATE:DATE": "2025-05-05"
-                }
-                """);
+                        {
+                          "CATEGORY_ID": 1556,
+                          "NAME": "MAIN category",
+                          "PRICE": 299.99,
+                          "CREATE_DATE:DATE": "2025-05-05"
+                        }
+                        """);
 
         sqlOracle.recordGoods_existV2(
                 """
-                {
-                  "CATEGORY_ID": 1556,
-                  "NAME": "MAIN category",
-                  "PRICE": 299.99,
-                  "CREATE_DATE:=:DATE": "2025-05-05"
-                }
-                """);
+                        {
+                          "CATEGORY_ID": 1556,
+                          "NAME": "MAIN category",
+                          "PRICE": 299.99,
+                          "CREATE_DATE:=:DATE": "2025-05-05"
+                        }
+                        """);
     }
 
     @Test
@@ -169,12 +167,11 @@ class OracleDbTest extends TestsSetupDB {
         });
 
 
-        assertThrows(AssertionError.class, () -> {
-            sqlOracle.recordGoods_exist(new Object[][]{
-                    {"NAME", "first category"},
-                    {"UPDATE_DATE", "=", "DATE", "2011-11-11"},
-            });
-        });
+        assertThrows(AssertionError.class, () ->
+                sqlOracle.recordGoods_exist(new Object[][]{
+                        {"NAME", "first category"},
+                        {"UPDATE_DATE", "=", "DATE", "2011-11-11"},
+                }));
 
     }
 
