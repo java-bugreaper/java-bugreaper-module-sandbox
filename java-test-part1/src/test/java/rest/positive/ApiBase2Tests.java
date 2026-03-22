@@ -17,7 +17,7 @@ import static net.bugreaper.core.allurereporter.AllureReporter.reporter;
 
 @Tag("rest")
 @Epic("[rest] Tests for API & mocks")
-@Feature("[rest] Api Headers & Query-params gl0bal/")
+@Feature("[rest] Api Headers & Query-params global/specific")
 class ApiBase2Tests {
 
     protected final MocksApi mockApi = new MocksApi();

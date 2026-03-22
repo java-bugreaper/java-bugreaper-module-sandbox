@@ -8,7 +8,7 @@
 ./up_local_env.sh
 ```
 
-# PART 0 (core)
+# CORE (core features)
 
 - run tests on the local environment:
 
@@ -33,7 +33,7 @@ http://localhost:8080
 
 ***
 
-# PART 1 (base)
+# PART 1 (API, mocks, Db(MariaDb), Minio)
 
 - run tests on the local environment:
 ```shell script
@@ -78,6 +78,7 @@ http://localhost:8080
 
 - see artemis UI on http://localhost:8161 (artemis:artemis-password)
 - see rabbit UI on http://localhost:15672 (guest_user:guest_pass)
+- see kafka UI on http://localhost:8082
 
 ***
 

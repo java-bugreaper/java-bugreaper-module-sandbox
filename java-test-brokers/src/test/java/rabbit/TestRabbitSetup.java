@@ -18,7 +18,7 @@ public abstract class TestRabbitSetup {
     protected static final String TEST_QUEUE = "my-test-queue";
 
     @BeforeAll
-    public static void createBucket() {
+    public static void create() {
         rabbit.declareQueue(TEST_QUEUE);
     }
 

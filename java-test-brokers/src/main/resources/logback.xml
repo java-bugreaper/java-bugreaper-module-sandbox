@@ -10,6 +10,7 @@
 
     <logger name="net.bugreaper.core" level="INFO"/>
 
+    <logger name="bugreaper-module-kafka" level="INFO"/>
     <logger name="bugreaper-module-artemis" level="INFO"/>
     <logger name="bugreaper-module-rabbit" level="INFO"/>
 
