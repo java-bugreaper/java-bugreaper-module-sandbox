@@ -1,5 +1,7 @@
-version: '3'
+version: '3.8'
+
 services:
+
 
   autotest-example:
     container_name: autotest-example

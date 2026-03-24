@@ -20,7 +20,7 @@ run_db() {
 }
 
 run_brokers() {
-  docker-compose -f docker-compose-brokers.yml up -d artemis rabbit
+  docker-compose -f docker-compose-brokers.yml up -d artemis rabbit test_ui_kafka
 }
 
 run_all() {

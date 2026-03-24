@@ -1,5 +1,7 @@
-version: '3'
+version: '3.8'
+
 services:
+
 
   mock-server:
     container_name: mock-server

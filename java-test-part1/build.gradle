@@ -15,7 +15,7 @@ repositories {
 def allureVersion = "2.27.0"
 
 dependencies {
-//not need but you cam use for new core
+//not need but you can use for new core
 //    implementation 'net.bugreaper:core:x.x.x'
     implementation("net.bugreaper:module-rest:1.1.0")
     implementation("net.bugreaper:module-db:1.1.0")

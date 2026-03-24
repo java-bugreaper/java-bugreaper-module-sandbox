@@ -8,19 +8,19 @@ java {
 }
 
 repositories {
-    //mavenLocal()
+//    mavenLocal()
     mavenCentral()
 }
 
 def allureVersion = "2.27.0"
 
 dependencies {
-//not need but you cam use for new core
+//not need but you can use for new core
 //    implementation 'net.bugreaper:core:x.x.x'
 
     implementation("net.bugreaper:module-artemis:1.0.0")
-
     implementation("net.bugreaper:module-rabbit:1.0.0")
+    implementation("net.bugreaper:module-kafka:1.0.0-rc1")
 
 }
 
@@ -42,6 +42,7 @@ tasks.register("all", Test) {
     useJUnitPlatform {
         includeTags("artemis")
         includeTags("rabbit")
+        includeTags("kafka")
     }
 
         systemProperties(System.getProperties())
@@ -75,6 +76,22 @@ tasks.register("artemis", Test) {
 tasks.register("rabbit", Test) {
     useJUnitPlatform {
         includeTags("rabbit")
+    }
+
+    systemProperties(System.getProperties())
+
+    testLogging {
+        events("PASSED", "FAILED", "SKIPPED")
+        showStandardStreams = true
+        exceptionFormat = "full"
+    }
+
+    test.outputs.upToDateWhen { false }
+}
+
+tasks.register("kafka", Test) {
+    useJUnitPlatform {
+        includeTags("kafka")
     }
 
     systemProperties(System.getProperties())
