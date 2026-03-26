@@ -16,11 +16,11 @@ public abstract class TestsSetupDB {
 
 
     // example how to use db insert\asset in different instances
-    protected final SqlPostgreInsert sqlPgInsert = SqlPostgreInsert.getInstance();
-    protected final SqlPostgreAssert sqlPgAssert = SqlPostgreAssert.getInstance();
+    protected final SqlPostgreInsert sqlPgInsert = new SqlPostgreInsert();
+    protected final SqlPostgreAssert sqlPgAssert = new SqlPostgreAssert();
 
-    protected final SqlMs msSql = SqlMs.getInstance();
-    protected final SqlOracle sqlOracle = SqlOracle.getInstance();
+    protected final SqlMs msSql = new SqlMs();
+    protected final SqlOracle sqlOracle = new SqlOracle();
 
     protected static final String DATE_TIME_TEST = generateDateTime("-1M2d4H");
     protected static final String DATE_TIME_TEST2 = generateDateTime("+1y2d", "11:10:10");

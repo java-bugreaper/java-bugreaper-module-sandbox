@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Tag;
 public abstract class TestRabbitSetup {
 
 
-    protected static final Rabbit rabbit = new Rabbit();
+    protected static final Rabbit rabbit = Rabbit.getInstance();
 
     protected static final String TEST_QUEUE = "my-test-queue";
 

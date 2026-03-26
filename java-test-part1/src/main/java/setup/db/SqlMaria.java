@@ -11,22 +11,32 @@ public class SqlMaria {
 
     private final MariaDb jdbc;
 
-    private static SqlMaria INSTANCE;
 
-    private SqlMaria() {
-        jdbc = new MariaDb();
+
+    public SqlMaria() {
+        jdbc = MariaDb.getInstance();
     }
+
+
+    //NOW NO NEED FOR THIS JUST USE
+
+//    private static SqlMaria INSTANCE;
+
+
+//    private SqlMaria() {
+//        jdbc = new MariaDb();
+//    }
 
     // Good practice to use Singleton
     // it`s just reuse created object
     // and don`t create multiple objects - every with own hikariCP pools
-    public static SqlMaria getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new SqlMaria();
-        }
-
-        return INSTANCE;
-    }
+//    public static SqlMaria getInstance() {
+//        if (INSTANCE == null) {
+//            INSTANCE = new SqlMaria();
+//        }
+//
+//        return INSTANCE;
+//    }
 
     //  POST
 

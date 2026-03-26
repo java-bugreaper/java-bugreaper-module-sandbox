@@ -12,22 +12,22 @@ public class SqlMs {
 
     private final MsSQL jdbc;
 
-    private static SqlMs INSTANCE;
+   // private static SqlMs INSTANCE;
 
-    private SqlMs() {
-        jdbc = new MsSQL();
+    public SqlMs() {
+        jdbc = MsSQL.getInstance();
 
         // provide dump
         jdbc.runScriptFromFile("dump/mssql_setup.sql");
     }
 
-    public static SqlMs getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new SqlMs();
-        }
-
-        return INSTANCE;
-    }
+//    public static SqlMs getInstance() {
+//        if (INSTANCE == null) {
+//            INSTANCE = new SqlMs();
+//        }
+//
+//        return INSTANCE;
+//    }
 
     //  POST
 

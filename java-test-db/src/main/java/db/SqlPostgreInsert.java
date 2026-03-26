@@ -14,22 +14,22 @@ public class SqlPostgreInsert {
 
     private final PostgreSQL jdbc;
 
-    private static SqlPostgreInsert INSTANCE;
+//    private static SqlPostgreInsert INSTANCE;
 
-    private SqlPostgreInsert() {
+    public SqlPostgreInsert() {
         // temp costil for local run ->  invalid value for parameter "TimeZone": "Europe/Kyiv"
         //TimeZone.setDefault(TimeZone.getTimeZone("Europe/Kiev"));
         // no problem after postgres 15+
-        jdbc = new PostgreSQL();
+        jdbc = PostgreSQL.getInstance();
     }
 
-    public static SqlPostgreInsert getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new SqlPostgreInsert();
-        }
-
-        return INSTANCE;
-    }
+//    public static SqlPostgreInsert getInstance() {
+//        if (INSTANCE == null) {
+//            INSTANCE = new SqlPostgreInsert();
+//        }
+//
+//        return INSTANCE;
+//    }
 
     //  POST
 

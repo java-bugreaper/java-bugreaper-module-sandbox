@@ -43,7 +43,7 @@ class MinioFailedTests {
     @Description("""
     Exception on large upload file size set:100""")
     void testObjectUploadSizeFailed() {
-        Minio minioUploadSize = minio.withMaxUploadSize(100);
+        Minio minioUploadSize = minio.setMaxUploadSize(100);
 
         minioUploadSize.createBucket(TEST_BUCKET);
 
@@ -59,7 +59,7 @@ class MinioFailedTests {
     @Description("""
     Exception on large download file size set:50""")
     void testObjectDownloadSizeFailed() {
-        Minio minioDownloadSize = minio.withMaxDownloadObjectSize(50);
+        Minio minioDownloadSize = minio.setMaxDownloadObjectSize(50);
 
         minioDownloadSize.createBucket(TEST_BUCKET);
 

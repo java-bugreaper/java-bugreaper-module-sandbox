@@ -25,10 +25,10 @@ public class ApiHelper extends Api{
     private static ApiHelper INSTANCE;
 
     private ApiHelper() {
-        this.apiHelper = new Api(); //default JSON
+        this.apiHelper = Api.getInstance(); //default JSON
         this.apiHelperForAuth = new Api(); //for different Auth cases
-        this.apiHelperXml = new Api().withContentTypeXml(); //For XML
-        this.apiHelperText = new Api().withContentType(TEXT); //For txt
+        this.apiHelperXml = new Api().setContentTypeXml(); //For XML
+        this.apiHelperText = new Api().setContentType(TEXT); //For txt
     }
 
     public static ApiHelper getInstance() {

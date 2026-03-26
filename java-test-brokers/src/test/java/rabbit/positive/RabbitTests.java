@@ -1,9 +1,11 @@
 package rabbit.positive;
 
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Test;
 import rabbit.TestRabbitSetup;
 
 
+@Feature("[rabbit] Tests as is")
 class RabbitTests extends TestRabbitSetup {
 
     @Test

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Tag;
 @Epic("[artemis] Tests as is")
 public abstract class TestArtemisSetup {
 
-    protected final Artemis artemis = new Artemis();
+    protected final Artemis artemis = Artemis.getInstance();
 
     protected static final String TEST_QUEUE = "my-test-queue";
 

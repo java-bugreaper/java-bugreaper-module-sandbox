@@ -14,7 +14,7 @@ import static net.bugreaper.core.allurereporter.AllureReporter.reporter;
 @TestMethodOrder(MethodOrderer.MethodName.class)
 public abstract class TestsSetupDB {
 
-    protected final SqlMaria sqlMaria = SqlMaria.getInstance();
+    protected final SqlMaria sqlMaria = new SqlMaria();
 
     protected static final String TEST_10_MINUTES = "2025-01-01 00:10:00";
     protected static final String TEST_20_MINUTES = "2025-01-01 00:20:00";

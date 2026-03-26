@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 @Epic("[info] Info")
 final public class InfoTest {
 
-    private final SqlPostgreAssert sqlPgAssert = SqlPostgreAssert.getInstance();
-    private final SqlMs msSql = SqlMs.getInstance();
-    private final SqlOracle sqlOracle = SqlOracle.getInstance();
+    private final SqlPostgreAssert sqlPgAssert = new SqlPostgreAssert();
+    private final SqlMs msSql = new SqlMs();
+    private final SqlOracle sqlOracle = new SqlOracle();
 
 
     @Test

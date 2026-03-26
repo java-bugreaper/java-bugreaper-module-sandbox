@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Tag("db")
 @Epic("[db] Tests for DataBases")
 @Feature("Db checks: CustomDB (Clickhouse)")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS) //To call connection once!
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS) //To call connection once per class! but .getInstance() is better
 class ClickhouseDbTest {
 
     //custom connect for clickhouse from config
-    private final CustomDb db = new CustomDb("clickhouse");
+    private final CustomDb db = CustomDb.getInstance().setTemplatesDirectory("templates/clickhouse/");
 
     @BeforeEach
     @Step("Clear test data")

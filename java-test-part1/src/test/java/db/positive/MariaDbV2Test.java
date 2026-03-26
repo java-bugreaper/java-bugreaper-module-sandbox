@@ -10,12 +10,12 @@ import org.junit.jupiter.api.TestInstance;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS) //To call connection once!
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS) //To call connection once per class - but better use MariaDb maria = MariaDb.getInstance()
 @Feature("Db checks: MariaDb vs simple data provide")
 class MariaDbV2Test {
 
     //private static final MariaDb maria = new MariaDb();
-    private final MariaDb maria = new MariaDb();
+    private final MariaDb maria = MariaDb.getInstance();
 
     @BeforeEach
     @Step("Clear test data")
