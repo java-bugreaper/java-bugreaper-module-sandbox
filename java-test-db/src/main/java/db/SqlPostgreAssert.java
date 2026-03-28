@@ -13,22 +13,22 @@ public class SqlPostgreAssert {
 
     private final PostgreSQL jdbc;
 
-    private static SqlPostgreAssert INSTANCE;
+//    private static SqlPostgreAssert INSTANCE;
 
-    private SqlPostgreAssert() {
-        jdbc = new PostgreSQL();
+    public SqlPostgreAssert() {
+        jdbc = PostgreSQL.getInstance();
     }
 
-    public static SqlPostgreAssert getInstance() {
-        if (INSTANCE == null) {
-            // temp costil for local run ->  invalid value for parameter "TimeZone": "Europe/Kyiv"
-            //TimeZone.setDefault(TimeZone.getTimeZone("Europe/Kiev"));
-            // no problem after postgres 15+
-            INSTANCE = new SqlPostgreAssert();
-        }
-
-        return INSTANCE;
-    }
+//    public static SqlPostgreAssert getInstance() {
+//        if (INSTANCE == null) {
+//            // temp costil for local run ->  invalid value for parameter "TimeZone": "Europe/Kyiv"
+//            //TimeZone.setDefault(TimeZone.getTimeZone("Europe/Kiev"));
+//            // no problem after postgres 15+
+//            INSTANCE = new SqlPostgreAssert();
+//        }
+//
+//        return INSTANCE;
+//    }
 
     // GET
 

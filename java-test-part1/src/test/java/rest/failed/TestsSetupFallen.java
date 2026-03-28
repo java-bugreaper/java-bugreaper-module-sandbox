@@ -20,9 +20,9 @@ public abstract class TestsSetupFallen {
 
     // on enchanted report (also cam be set in config 'enchanted-report: true')
     //in tests usually not necessary to crete multiple Verify with different config - it`s just example
-    protected final MockVerify mockVerifyEnchanted = (MockVerify) new MockVerify().withEnchantedReport(true);
+    protected final MockVerify mockVerifyEnchanted = (MockVerify) new MockVerify().setEnchantedReport(true);
 
-    protected final MocksApi mocksApi = new MocksApi();
+    protected final MocksApi mocksApi = MocksApi.getInstance();
 
     protected final ApiHelper api = ApiHelper.getInstance();
 

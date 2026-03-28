@@ -15,7 +15,7 @@ import setup.db.SqlMaria;
 class MariaDbFailedTest {
 
 
-    protected final SqlMaria sqlMaria = SqlMaria.getInstance();
+    protected final SqlMaria sqlMaria = new SqlMaria();
 
     @BeforeEach
     @Step("Clear test data")

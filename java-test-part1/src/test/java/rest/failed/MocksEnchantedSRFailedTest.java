@@ -2,6 +2,7 @@ package rest.failed;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
+import net.bugreaper.modules.mocks.MocksApi;
 import org.junit.jupiter.api.Test;
 
 
@@ -429,6 +430,69 @@ class MocksEnchantedSRFailedTest extends TestsSetupFallen {
 
 
         mockVerifyEnchanted.mockVerify("""
+                {
+                  "httpRequest": {
+                    "method": "POST",
+                    "path": "/user/6",
+                    "body" : {
+                       "id": 6
+                    },
+                    "headers": {
+                        "Content-Type" : ["application/json"]
+                    },
+                  },
+                  "times": {
+                    "atLeast": 1,
+                    "atMost": 1
+                  }
+                }""");
+    }
+
+    @Test
+    @Description("Mock verify failed by All: for summary table report (with await)")
+    void enchantedVerifyWithAwaitError_byAll() {
+
+        final var email = "response@com.com";
+
+        mockCreate.universalMock();
+        mockCreate.testPostXml("some_xml", 200);
+
+        api.postUser("1", "Tommy", email)
+                .seeResponseCodeIs(200);
+
+        api.postUserNoJson("5",
+                        """
+                                {"id": 5}""")
+                .seeResponseCodeIs(200);
+
+        //valid
+        api.postUser("6",
+                        """
+                                {"id": 6}""")
+                .seeResponseCodeIs(200);
+
+        api.postUser("6",
+                        """
+                                {
+                                "id": 6,
+                                "text": "test"
+                                }""")
+                .seeResponseCodeIs(200);
+
+        api.postUserString("some_string")
+                .seeResponseCodeIs(200);
+
+        api.postUserXML("some_XML")
+                .seeResponseCodeIs(200);
+
+
+        api.getUser("1")
+                .seeResponseCodeIs(200);
+
+        MocksApi mocksApiCustom = MocksApi.getInstance();
+
+
+        mocksApiCustom.withAwaitMs(770).verifyMockWithAwait("""
                 {
                   "httpRequest": {
                     "method": "POST",

@@ -8,22 +8,22 @@ import io.qameta.allure.Step;
 public class SqlOracle {
 
 
-    private static SqlOracle INSTANCE;
+  //  private static SqlOracle INSTANCE;
     private final OracleDb jdbcOracle;
 
-    private SqlOracle() {
-        jdbcOracle = new OracleDb();
+    public SqlOracle() {
+        jdbcOracle =OracleDb.getInstance();
 
     }
 
 
-    public static SqlOracle getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new SqlOracle();
-        }
-
-        return INSTANCE;
-    }
+//    public static SqlOracle getInstance() {
+//        if (INSTANCE == null) {
+//            INSTANCE = new SqlOracle();
+//        }
+//
+//        return INSTANCE;
+//    }
 
     //  POST
 

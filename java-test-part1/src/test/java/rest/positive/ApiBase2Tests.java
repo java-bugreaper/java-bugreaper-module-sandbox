@@ -85,13 +85,13 @@ class ApiBase2Tests {
         apiHead.setHeader("par_new2", "data_new2").sendGet("/test-get");
 
         reporter("Specific headers (use for next request ignore global)");
-        apiHead.requestHeaders(Map.of("spec1", "data_spec1")).sendGet("/test-get");
+        apiHead.withHeaders(Map.of("spec1", "data_spec1")).sendGet("/test-get");
 
         reporter("Rollback to global after specific");
         apiHead.sendGet("/test-get");
 
         reporter("Specific headers multi (use for next request ignore global)");
-        apiHead.requestHeader("spec1", "data_spec1").requestHeader("spec2", "data_spec2").sendGet("/test-get");
+        apiHead.withHeader("spec1", "data_spec1").withHeader("spec2", "data_spec2").sendGet("/test-get");
 
         reporter("Clean: no headers");
         apiHead.cleanSetHeaders().sendGet("/test-get");
@@ -113,10 +113,13 @@ class ApiBase2Tests {
         apiParams.setQueryParams(Map.of("par_new1", "data_new1")).sendGet("/test-get");
 
         reporter("Specific params (use for next request ignore global)");
-        apiParams.requestQueryParams(Map.of("spec1", "data_spec1")).sendGet("/test-get");
+        apiParams.withQueryParams(Map.of("spec1", "data_spec1")).sendGet("/test-get");
 
         reporter("Rollback to global after specific");
         apiParams.sendGet("/test-get");
+
+        reporter("Specific params multi (use for next request ignore global)");
+        apiParams.withQueryParam("spec1", "data_spec1").withQueryParam("spec2", "data_spec2").sendGet("/test-get");
 
         reporter("Clean: no params");
         apiParams.cleanSetQueryParams().sendGet("/test-get");

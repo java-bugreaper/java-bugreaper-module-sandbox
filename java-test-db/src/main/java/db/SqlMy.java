@@ -9,22 +9,22 @@ public class SqlMy {
 
     private final MySQL jdbc;
 
-    private static SqlMy INSTANCE;
+//    private static SqlMy INSTANCE;
 
-    private SqlMy() {
-        jdbc = new MySQL();
+    public SqlMy() {
+        jdbc = MySQL.getInstance();
     }
 
     // Good practice to use Singleton
     // it`s just reuse created object
     // and don`t create multiple objects - every with own hikariCP pools
-    public static SqlMy getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new SqlMy();
-        }
-
-        return INSTANCE;
-    }
+//    public static SqlMy getInstance() {
+//        if (INSTANCE == null) {
+//            INSTANCE = new SqlMy();
+//        }
+//
+//        return INSTANCE;
+//    }
 
 
     private final String SCHEMA = "MYSQL_SCHEMA";

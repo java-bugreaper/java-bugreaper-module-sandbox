@@ -109,7 +109,9 @@ class ApiBaseTests {
 
     @Test
     void testPostNoBody() {
-        api.withLogging(true).sendPost(endpoint)
+        final Api apiLog = new Api().setLogging(true);
+
+        apiLog.sendPost(endpoint)
                 .seeResponseCodeIs(200);
 
         verifyMockMethod("POST", endpoint, 1);

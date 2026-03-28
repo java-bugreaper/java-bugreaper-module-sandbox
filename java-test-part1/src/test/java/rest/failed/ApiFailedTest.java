@@ -14,7 +14,7 @@ class ApiFailedTest extends TestsSetupFallen {
             Create mock expectation with multiple keys
             -> check keys (two wrong & one miss)""")
     void apiResponseJson_checkBody_severalKeysFailed() {
-    mockVerify.withLogging(true);
+    mockVerify.setLogging(true);
         mocksApi.createMockCustom(
                 "create GET mock with many params",
                 "data/mocks/expect/get_ex_many_keys_types.json");
