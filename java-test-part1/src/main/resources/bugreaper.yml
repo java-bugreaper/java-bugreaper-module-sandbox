@@ -5,7 +5,7 @@ modules:
     username: admin
     password: password
     await: 500 # optional
-    max-upload-file-size: 1024 # optional
+    max-upload-file-size: 10000000 # optional
     max-download-file-size: 2048 # optional
   api:
     url: http://localhost
@@ -27,3 +27,13 @@ modules:
       username: MARIA_SCHEMA
       password: maria_pass
       await: 1000 # optional
+  email:
+    host: localhost
+    port: 1025
+    auth: true
+    username: 'user'
+    password: 'password123'
+  mailpit:
+    url: http://localhost
+    port: 8025
+    await: 600

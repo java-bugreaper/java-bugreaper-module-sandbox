@@ -54,6 +54,14 @@ public class ApiHelper extends Api{
     }
 
     @Step("GET user API")
+    public AssertableResponse getUserWithQueryParam(String userId, String key, String value) {
+
+        return apiHelper
+                .withQueryParam(key, value)
+                .sendGet("user/" + userId);
+    }
+
+    @Step("GET user API")
     public AssertableResponse getUserWithAuth(String user, String pass, String userId) {
 
         return apiHelperForAuth.setBasicAuth(user, pass)

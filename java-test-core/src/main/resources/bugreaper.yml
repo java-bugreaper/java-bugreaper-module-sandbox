@@ -1,3 +1,6 @@
 custom-module:
   v1:
     test: my-string
+modules:
+  file-helper:
+    await: 500

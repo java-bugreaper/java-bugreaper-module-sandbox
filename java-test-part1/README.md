@@ -11,8 +11,18 @@
   - interact with database
     - Insert from templates & merged test data (json/Objects dataProviders)
   - Asserts (record exist/notExist, table empty/notEmpty)
-    - Specific data check 
+    - Specific data check
       - JSON_CONTAINS, JSON_EQUALS, REGEX
+
+- [email] SMTP & Mailpit tests
+  - interact with SMTP
+    - send simple message
+    - send message with builder (Cc, Bcc, attaches)
+  - Asserts with Mailpit wrapper
+    - Email data check
+    - Email counts check
+  - negative tests with Mailpit CHAOS
+    - return SMTP errors
 
 - Expected FAILED/BROKEN
   - MockEnchantedReport on FAIL example (difference)

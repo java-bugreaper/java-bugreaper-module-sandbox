@@ -86,4 +86,27 @@ class MinioFailedTests {
         minio.seeObjectSizeIsLessThan(TEST_BUCKET, "some_name", 20);
     }
 
+    @Test
+    @Description("""
+            Test create bucket -> upload object(177 bytes) and check it""")
+    void testObjectSizeFailedBeautifyCheck() {
+        var bucket = "test2-bucket";
+        var object = "object-size.txt";
+
+        String fileName = "temp/test_size_1.txt";
+        long expectedBytes = (2 * (1024 * 1024)) + 10234 + 2;
+
+
+        minio.createBucket(bucket);
+        minio.cleanBucket(bucket);
+
+        createResourceFileWithSize(fileName, expectedBytes);
+
+        minio.uploadFileToBucket(bucket, fileName, object);
+
+        minio.seeObjectExists(bucket, object);
+
+        minio.seeObjectSizeExactly(bucket, object, expectedBytes-100);
+    }
+
 }

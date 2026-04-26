@@ -48,6 +48,28 @@ services:
       retries: 3
     restart: unless-stopped
 
+  mailpit:
+    image: axllent/mailpit:v1.29.6
+    container_name: mailpit
+    restart: unless-stopped
+    ports:
+      - "8025:8025" # for UI/API
+      - "1025:1025" # for SMTP
+      - "1110:1110" # for POP3
+    environment:
+      - MP_MAX_MESSAGES=5000
+      - MP_ENABLE_CHAOS=true # for negative tests
+      # Allow authentication over unencrypted connections (standard for dev)
+      - MP_SMTP_AUTH_ALLOW_INSECURE=true
+
+      # Disable authentication
+      #      - MP_SMTP_AUTH_ACCEPT_ANY=true
+
+      # Define allowed credentials (format "user:pass", space-separated for multiples)
+      - MP_SMTP_AUTH=user:password123 dev:secret
+
+  #      - MP_POP3_LISTEN="0.0.0.0:1110"
+
   autotest-example:
     container_name: autotest-example
     image: gradle:7.6.3-jdk17
@@ -61,6 +83,8 @@ services:
       minio:
         condition: service_healthy
       mock-server:
+        condition: service_started
+      mailpit:
         condition: service_started
       mariadb:
         condition: service_healthy

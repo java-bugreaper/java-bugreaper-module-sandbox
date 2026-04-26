@@ -8,7 +8,7 @@ java {
 }
 
 repositories {
-//    mavenLocal()
+    //mavenLocal()
     mavenCentral()
 }
 
@@ -17,9 +17,10 @@ def allureVersion = "2.27.0"
 dependencies {
 //not need but you can use for new core
 //    implementation 'net.bugreaper:core:x.x.x'
-    implementation("net.bugreaper:module-rest:1.1.1")
+    implementation("net.bugreaper:module-rest:1.2.0")
     implementation("net.bugreaper:module-db:1.1.1")
-    implementation("net.bugreaper:module-minio:1.1.0")
+    implementation("net.bugreaper:module-minio:1.2.0")
+    implementation("net.bugreaper:module-email:1.0.0-rc")
 
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.5.6'
 
@@ -44,6 +45,7 @@ tasks.register("all", Test) {
         includeTags("minio")
         includeTags("rest")
         includeTags("db")
+        includeTags("email")
     }
 
         systemProperties(System.getProperties())
@@ -109,6 +111,22 @@ tasks.register("rest", Test) {
 tasks.register("db", Test) {
     useJUnitPlatform {
         includeTags("db")
+    }
+
+    systemProperties(System.getProperties())
+
+    testLogging {
+        events("PASSED", "FAILED", "SKIPPED")
+        showStandardStreams = true
+        exceptionFormat = "full"
+    }
+
+    test.outputs.upToDateWhen { false }
+}
+
+tasks.register("email", Test) {
+    useJUnitPlatform {
+        includeTags("email")
     }
 
     systemProperties(System.getProperties())
