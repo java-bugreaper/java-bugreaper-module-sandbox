@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 @Feature("Mocks verify failed tests with enchanted report")
 class MocksEnchantedFailedTest extends TestsSetupFallen {
 
-    
+
     
     @Test
     @Description("Mock verify failed by body")
@@ -217,6 +217,39 @@ class MocksEnchantedFailedTest extends TestsSetupFallen {
                 }""");
     }
 
+
+    @Test
+    @Description("Mock verify failed by method and path")
+    void enchantedVerifyError_byQueryParams() {
+
+        final var email = "response@com.com";
+
+        mockCreate.universalMock();
+
+        api.postUser("1", "Tommy", email)
+                .seeResponseCodeIs(200);
+
+        api.getUserWithQueryParam("1", "test", "one")
+                .seeResponseCodeIs(200);
+
+        api.getUserWithQueryParam("1", "test1", "single")
+                .seeResponseCodeIs(200);
+
+        mockVerifyEnchanted.mockVerify("""
+                {
+                  "httpRequest": {
+                    "method": "GET",
+                    "path": "/user/1",
+                    "queryStringParameters": {
+                                "test" : ["single"]
+                    }
+                  },
+                  "times": {
+                    "atLeast": 1,
+                    "atMost": 1
+                  }
+                }""");
+    }
 
     @Test
     @Description("Mock verify failed by STRICT body")

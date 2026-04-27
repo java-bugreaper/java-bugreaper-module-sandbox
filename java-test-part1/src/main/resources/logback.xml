@@ -18,6 +18,7 @@
     <logger name="MockEnchantedReport" level="INFO"/>
 
     <logger name="bugreaper-module-db" level="INFO"/>
+    <logger name="bugreaper-module-email" level="INFO"/>
 
 
     <root level="INFO">

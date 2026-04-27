@@ -13,7 +13,7 @@ import static net.bugreaper.core.allurereporter.AllureBuilder.reportHtmlCsvCases
 import static net.bugreaper.core.allurereporter.AllureReporter.*;
 import static net.bugreaper.core.filereaders.FileReader.readCsvToArray;
 import static net.bugreaper.core.filereaders.FileReader.readTextFromFile;
-import static net.bugreaper.core.filereaders.ResourcesFileReader.readResourceFile;
+import static net.bugreaper.core.filereaders.ResourcesFileReader.*;
 
 @Tag("core")
 @Epic("[core] Tests core only")
@@ -60,4 +60,15 @@ final public class CoreTest {
                 "No step",
                 "bugreaper.yml");
     }
+
+    @Test
+    @DisplayName("Create file with specific size ( No steps )")
+    void checkFileSizeTest() {
+        String fileName = "temp/file_size.txt";
+
+        createResourceFileWithSize(fileName, 2000);
+
+        seeResourceFileNotEmpty(fileName);
+    }
+
 }

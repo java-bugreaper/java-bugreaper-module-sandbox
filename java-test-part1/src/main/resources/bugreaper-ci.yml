@@ -5,7 +5,7 @@ modules:
     username: admin
     password: password
     await: 500 # optional
-    max-upload-file-size: 1024 # optional
+    max-upload-file-size: 10000000 # optional
     max-download-file-size: 2048 # optional
   api:
     url: http://mock-server
@@ -27,3 +27,13 @@ modules:
       username: MARIA_SCHEMA
       password: maria_pass
       await: 1000 # optional
+  email:
+    host: mailpit
+    port: 1025
+    auth: true # optional
+    username: 'user' # optional
+    password: 'password123' # optional
+  mailpit:
+    url: http://mailpit
+    port: 8025
+    await: 600 # optional

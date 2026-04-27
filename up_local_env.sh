@@ -12,7 +12,7 @@ run_core() {
 }
 
 run_part1() {
-  docker-compose -f docker-compose-part1.yml up -d minio mock-server mariadb
+  docker-compose -f docker-compose-part1.yml up -d minio mock-server mariadb mailpit
 }
 
 run_db() {

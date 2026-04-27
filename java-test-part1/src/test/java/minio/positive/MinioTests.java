@@ -1,5 +1,6 @@
 package minio.positive;
 
+import net.bugreaper.modules.filehelper.FileHelper;
 import net.bugreaper.modules.minio.Minio;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -10,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import static net.bugreaper.core.allurereporter.AllureReporter.addStepAttachment;
 import static net.bugreaper.core.filereaders.ResourcesFileReader.createResourceFileWithSize;
 import static net.bugreaper.core.filereaders.ResourcesFileReader.readResourceFile;
-import static helper.ApiExtractor.extractBody;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -76,13 +76,16 @@ class MinioTests {
         minio.cleanBucket(bucket);
         minio.uploadFileToBucket(bucket, TEST_FILE_LINES, "some_new_dir/object.txt");
 
-        String url = minio.shareObjectInBucket(bucket, object);
+        String link = minio.shareObjectInBucket(bucket, object);
 
-        String content = extractBody(url);
+        minio.downloadObjectBySharedLink(link, "temp/my_shared_file.txt");
 
-        //TODO
-        //better do with API module(in future)
-        assertEquals(readResourceFile(TEST_FILE_LINES), content, "Shared object correct");
+        FileHelper fileHelper = new FileHelper();
+
+        fileHelper.seeFileContainString(TEST_FILE_LINES, readResourceFile("temp/my_shared_file.txt"));
+
+        //or without helper
+        assertEquals(readResourceFile(TEST_FILE_LINES), readResourceFile("temp/my_shared_file.txt"), "Shared object correct");
     }
 
     @Test

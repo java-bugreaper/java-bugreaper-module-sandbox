@@ -8,6 +8,7 @@
 ./up_local_env.sh
 ```
 
+=================================================================================
 # CORE (core features)
 
 - run tests on the local environment:
@@ -33,6 +34,7 @@ http://localhost:8080
 
 ***
 
+=================================================================================
 # PART 1 (API, mocks, Db(MariaDb), Minio)
 
 - run tests on the local environment:
@@ -58,10 +60,12 @@ http://localhost:8080
 
 - see mock-server UI http://localhost:1080/mockserver/dashboard
 - see minio UI http://localhost:9001 (admin:password)
+- see Mailpit(email) UI http://localhost:8025
 - connect to mariaDb localhost:3306 (MARIA_SCHEMA:maria_pass MARIA_SCHEMA)
 
 ***
 
+=================================================================================
 # Brokers (artemis, rabbit, kafka)
 
 - run tests on the local environment:
@@ -82,6 +86,7 @@ http://localhost:8080
 
 ***
 
+=================================================================================
 # Databases (Mssql, Postgresql, OracleDb)
 
 - run tests on the local environment:
