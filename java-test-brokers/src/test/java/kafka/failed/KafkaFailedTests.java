@@ -39,6 +39,16 @@ class KafkaFailedTests extends TestKafkaSetup {
                     "id": 3
                 }""");
 
+        kafka.sendToTopic(TOPIC, """
+                {
+                    "ids": 2
+                }""");
+
+        kafka.sendToTopic(TOPIC, """
+                {
+                    "id": "2"
+                }""");
+
         assertThrows(AssertionError.class, () ->
                 kafka.seeMessagesContainJson(TOPIC,
                         """
