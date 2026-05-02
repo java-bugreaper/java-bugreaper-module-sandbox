@@ -106,3 +106,21 @@ http://localhost:8080
 - connect to OracleDb localhost:1521 (ADMIN:ADMIN ORACLE_SCHEMA)
 - connect to MySql localhost:3308 (mysql_user:mysql_pass MYSQL_SCHEMA)
 - connect to Clickhouse localhost:3308 (default:password myschema)
+
+
+=================================================================================
+# No sql Databases (MongoDb)
+
+- run tests on the local environment:
+
+```shell script
+./gradlew clean :java-test-nosql:test 
+```
+
+- local report (without server)
+```shell script
+./gradlew :java-test-nosql:downloadAllure &&
+./gradlew :java-test-nosql:allureServe
+```
+
+- connect to MongoDb UI localhost:8081 (root:example_password)

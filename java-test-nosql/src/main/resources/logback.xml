@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d [%thread][%-5level][%-10logger{0}] %class %method: %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <logger name="bugreaper-module-mongodb" level="INFO" />
+
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

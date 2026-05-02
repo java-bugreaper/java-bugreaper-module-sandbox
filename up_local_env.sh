@@ -19,6 +19,10 @@ run_db() {
   docker-compose -f docker-compose-db.yml up -d postgresql mssql oracle mysql clickhouse
 }
 
+run_nosql() {
+  docker-compose -f docker-compose-nosql.yml up -d mongo-express
+}
+
 run_brokers() {
   docker-compose -f docker-compose-brokers.yml up -d artemis rabbit test_ui_kafka
 }
@@ -27,12 +31,13 @@ run_all() {
   run_core
   run_part1
   run_db
+  run_nosql
   run_brokers
 }
 
 PS3="Choose environment to start: "
 
-options=("core" "part1" "db" "brokers" "all" "exit")
+options=("core" "part1" "db" "nosql" "brokers" "all" "exit")
 
 
 select opt in "${options[@]}"; do
@@ -54,6 +59,10 @@ select opt in "${options[@]}"; do
       ;;
     "db")
       run_db
+      break
+      ;;
+    "nosql")
+      run_nosql
       break
       ;;
     "brokers")

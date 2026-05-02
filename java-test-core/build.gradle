@@ -8,10 +8,11 @@ java {
 }
 
 repositories {
-    mavenLocal()
+    //mavenLocal()
     mavenCentral()
 }
 
+// custom build dir
 buildDir = 'my-build'
 
 def allureVersion = "2.27.0"

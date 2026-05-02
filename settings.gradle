@@ -2,5 +2,6 @@ rootProject.name = 'java-bugreaper-sandbox'
 include 'java-test-core'
 include 'java-test-brokers'
 include 'java-test-db'
+include 'java-test-nosql'
 include 'java-test-part1'
 startParameter.continueOnFailure = true
