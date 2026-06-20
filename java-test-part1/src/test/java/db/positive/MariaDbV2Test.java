@@ -81,6 +81,40 @@ class MariaDbV2Test {
                 });
     }
 
+
+    @Test
+    @Description("""
+            Create data in MariaDb table
+            -> check data in MariaDb table (provide JSON)""")
+    void checkMariaDb_fixtureCreate_dataExistCheck2_links() {
+
+        maria.insertIntoTable("MARIA_SCHEMA.USERS",
+                """
+                        {
+                            "ID": 15,
+                            "USERNAME": "Alex",
+                            "EMAIL": "alex@com.com",
+                            "STATE": true,
+                            "IS_ACTIVE": true,
+                            "AMOUNT": 11.99,
+                            "DESCRIPTION": null
+                        }""");
+
+
+        maria.seeRecordExistsInTable("MARIA_SCHEMA.USERS",
+                """
+                        {
+                            "ID": 15,
+                            "USERNAME": "Alex",
+                            "EMAIL": "alex@com.com",
+                            "STATE": true,
+                            "IS_ACTIVE": true,
+                            "AMOUNT": 11.99,
+                            "DESCRIPTION": null
+                        }""");
+
+    }
+
     @Test
     @Description("""
             Insert from template file + test data by JSON (different column types)

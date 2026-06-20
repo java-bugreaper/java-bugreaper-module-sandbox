@@ -73,6 +73,8 @@ class RabbitTests extends TestRabbitSetup {
         rabbit.pushToQueue(TEST_QUEUE, "test1");
         rabbit.seeMessagesHaveEqualText(TEST_QUEUE, "test1");
 
+        rabbit.seeQueueMessageCountIsExactly(TEST_QUEUE, 0);
+
         rabbit.pushToQueue(TEST_QUEUE, "test2");
         rabbit.seeMessagesHaveEqualText(TEST_QUEUE, "test2");
     }
@@ -91,7 +93,7 @@ class RabbitTests extends TestRabbitSetup {
     @Test
     void createQueue_pushMessageToQueue_checkLastMessageContainsJson() {
 
-        final String lastMessage = """
+        final String message = """
                 {
                   "status": 11,
                   "statusName": "Something",
@@ -104,7 +106,9 @@ class RabbitTests extends TestRabbitSetup {
                 }""";
 
         rabbit.declareQueue(TEST_QUEUE);
-        rabbit.pushToQueue(TEST_QUEUE, lastMessage);
+        rabbit.pushToQueue(TEST_QUEUE, "dummy1");
+        rabbit.pushToQueue(TEST_QUEUE, message);
+        rabbit.pushToQueue(TEST_QUEUE, "dummy3");
 
         rabbit.seeMessagesContainJson(TEST_QUEUE, expectedPart);
     }
@@ -126,6 +130,31 @@ class RabbitTests extends TestRabbitSetup {
         rabbit.seeQueueMessageCountIsExactly(TEST_QUEUE, 1);
 
         rabbit.seeMessagesHaveEqualJson(TEST_QUEUE, lastMessage);
+    }
+
+    @Test
+    void grabMessagesFromQueueTest() {
+
+        final String lastMessage = """
+                {
+                  "status": 112,
+                  "statusName": "Something3",
+                  "name": "AlexNew"
+                }""";
+
+        rabbit.declareQueue(TEST_QUEUE);
+        rabbit.pushToQueue(TEST_QUEUE, lastMessage);
+
+        rabbit.grabMessagesFromQueue(TEST_QUEUE)
+                .seeListAnyContainsJson("""
+                        {
+                        "status": 112
+                        }""")
+                .seeListAnyContainsExtendedJson("""
+                        {
+                        "status:>": 110,
+                        "statusName:regex": "Some.*"
+                        }""");
     }
 
 }

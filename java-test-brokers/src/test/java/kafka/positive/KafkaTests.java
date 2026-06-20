@@ -92,6 +92,7 @@ class KafkaTests extends TestKafkaSetup {
 
         kafka.sendToTopic(TOPIC, "test_text1");
         kafka.sendToTopic(TOPIC, "test_text2");
+        kafka.sendToTopic(TOPIC, "test_text3");
         kafka.seeMessagesHaveEqualText(TOPIC, "test_text2");
     }
 

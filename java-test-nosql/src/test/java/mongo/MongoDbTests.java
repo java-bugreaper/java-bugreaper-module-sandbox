@@ -50,8 +50,6 @@ class MongoDbTests {
             -> check STRICT assert for record existing""")
     void insertAndStrictAssertsRecordArraysTest() {
 
-        mongo.cleanCollection(COLLECTION);
-
         mongo.insertIntoCollection(
                 COLLECTION,
                 """
@@ -83,8 +81,6 @@ class MongoDbTests {
             -> check CONTAINS assert for record existing""")
     void insertAndContainsAssertsRecordArraysTest() {
 
-        mongo.cleanCollection(COLLECTION);
-
         mongo.insertIntoCollection(
                 COLLECTION,
                 """
@@ -105,6 +101,43 @@ class MongoDbTests {
                                 "array": ["27","25"]
                             }
                         }""");
+
+    }
+
+    @Test
+    @Description("""
+            Create records
+            -> check by grabDocumentsFromCollection""")
+    void insertAndGrabTest() {
+
+        mongo.insertIntoCollection(
+                COLLECTION,
+                """
+                        {
+                            "name": "Alex",
+                            "age": 19
+                        }""");
+
+        mongo.insertIntoCollection(
+                COLLECTION,
+                """
+                        {
+                            "name": "John",
+                            "age": 20
+                        }""");
+
+        mongo.grabDocumentsFromCollection(COLLECTION)
+                .seeListAnyContainsJson("""
+                    {
+            
+                      "name": "Alex"
+                    }""")
+                .seeListAnyContainsJson("""
+                    {
+            
+                      "age": 20
+                    }""")
+                .seeListHasExactlyCount(2);
 
     }
 
