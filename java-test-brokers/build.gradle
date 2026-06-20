@@ -8,7 +8,7 @@ java {
 }
 
 repositories {
-//    mavenLocal()
+//    mavenLocal()1
     mavenCentral()
 }
 
@@ -19,8 +19,8 @@ dependencies {
 //    implementation 'net.bugreaper:core:x.x.x'
 
     implementation("net.bugreaper:module-artemis:1.1.0")
-    implementation("net.bugreaper:module-rabbit:1.1.0")
-    implementation("net.bugreaper:module-kafka:1.0.0")
+    implementation("net.bugreaper:module-rabbit:1.1.2")
+    implementation("net.bugreaper:module-kafka:1.0.2")
 
 }
 

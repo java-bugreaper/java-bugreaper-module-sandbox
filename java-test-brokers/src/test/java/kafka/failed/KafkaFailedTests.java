@@ -36,7 +36,7 @@ class KafkaFailedTests extends TestKafkaSetup {
 
         kafka.sendToTopic(TOPIC, """
                 {
-                    "id": 3
+                    "id": 1
                 }""");
 
         kafka.sendToTopic(TOPIC, """
@@ -46,7 +46,7 @@ class KafkaFailedTests extends TestKafkaSetup {
 
         kafka.sendToTopic(TOPIC, """
                 {
-                    "id": "2"
+                    "id": 3
                 }""");
 
         assertThrows(AssertionError.class, () ->

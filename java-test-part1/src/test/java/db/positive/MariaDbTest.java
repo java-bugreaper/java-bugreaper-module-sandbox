@@ -38,7 +38,6 @@ class MariaDbTest extends TestsSetupDB {
                 {"AMOUNT", amount},
                 {"DESCRIPTION", null},
         });
-
     }
 
     @Test

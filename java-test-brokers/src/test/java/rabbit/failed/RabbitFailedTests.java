@@ -40,4 +40,28 @@ class RabbitFailedTests extends TestRabbitSetup {
         );
     }
 
+    @Test
+    void grabMessagesFromQueueTestFailed() {
+
+        final String lastMessage = """
+                {
+                  "status": 112,
+                  "statusName": "Something3",
+                  "name": "AlexNew"
+                }""";
+
+        rabbit.declareQueue(TEST_QUEUE);
+        rabbit.pushToQueue(TEST_QUEUE, lastMessage);
+
+        assertThrows(AssertionError.class, () ->
+        rabbit.grabMessagesFromQueue(TEST_QUEUE)
+                .seeListAnyContainsExtendedJson("""
+                        {
+                        "status:>": 112,
+                        "statusName:regex": "SomeL.*"
+                        }""")
+        );
+    }
+
+
 }
