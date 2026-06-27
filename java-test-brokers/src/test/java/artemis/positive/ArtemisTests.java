@@ -12,7 +12,7 @@ class ArtemisTests extends TestArtemisSetup {
 
     @Test
     void testPushToQueue() {
-        String queue = "new_topic_2";
+        String queue = "new_queue_2";
         artemis.pushToQueue(queue, "test_text");
     }
 
@@ -38,7 +38,7 @@ class ArtemisTests extends TestArtemisSetup {
     @Test
     void testCountMessagesV2() {
         artemis.pushToQueue(TEST_QUEUE, "test");
-        artemis.cleanQueue(TEST_QUEUE);
+        artemis.purgeQueue(TEST_QUEUE);
         artemis.pushToQueue(TEST_QUEUE, "test_text1");
         artemis.pushToQueue(TEST_QUEUE, "test_text2");
         artemis.seeCountMessagesInQueueExactly(TEST_QUEUE, 2);
@@ -48,6 +48,8 @@ class ArtemisTests extends TestArtemisSetup {
     void testCountMessagesSaved() {
 
         artemis.seeQueueIsEmpty(TEST_QUEUE);
+
+//        artemis.deleteQueue(TEST_QUEUE);
         artemis.pushToQueue(TEST_QUEUE, "test_text1");
         artemis.pushToQueue(TEST_QUEUE, "test_text2");
         artemis.seeQueueIsNotEmpty(TEST_QUEUE);
@@ -219,6 +221,21 @@ class ArtemisTests extends TestArtemisSetup {
     }
 
     @Test
+    void testPurgeMultipleQueues() {
+
+        String queue1 = "queue1";
+        String queue2 = "queue2";
+
+        artemis.pushToQueue(queue1, "test_text1");
+        artemis.pushToQueue(queue2, "test_text2");
+
+        artemis.purgeQueues(queue1, queue2);
+
+        artemis.seeQueueIsEmpty(queue1);
+        artemis.seeQueueIsEmpty(queue2);
+    }
+
+    @Test
     void testMessageReadAndCheck() {
 
 
@@ -242,5 +259,20 @@ class ArtemisTests extends TestArtemisSetup {
                 .seeListHasExactlyCount(0);
     }
 
+    @Test
+    void testCountMessagesSavedMulticast() {
+        artemis.purgeQueue(TEST_QUEUE_MULTI);
+        artemis.seeQueueIsEmpty(TEST_QUEUE_MULTI);
+
+        artemis.pushToQueue(TEST_QUEUE_MULTI, "test_text1");
+        artemis.pushToQueue(TEST_QUEUE_MULTI, "test_text2");
+        artemis.seeQueueIsNotEmpty(TEST_QUEUE_MULTI);
+        artemis.seeCountMessagesInQueueExactly(TEST_QUEUE_MULTI, 2);
+
+        artemis.grabMessagesFromQueue(TEST_QUEUE_MULTI)
+                .seeListHasExactlyCount(2);
+
+        artemis.seeQueueIsEmpty(TEST_QUEUE_MULTI);
+    }
 
 }

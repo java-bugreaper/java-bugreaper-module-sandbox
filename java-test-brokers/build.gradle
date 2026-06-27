@@ -8,7 +8,7 @@ java {
 }
 
 repositories {
-//    mavenLocal()1
+    //mavenLocal()
     mavenCentral()
 }
 
@@ -18,7 +18,7 @@ dependencies {
 //not need but you can use for new core
 //    implementation 'net.bugreaper:core:x.x.x'
 
-    implementation("net.bugreaper:module-artemis:1.1.0")
+    implementation("net.bugreaper:module-artemis:1.2.0")
     implementation("net.bugreaper:module-rabbit:1.1.2")
     implementation("net.bugreaper:module-kafka:1.0.2")
 

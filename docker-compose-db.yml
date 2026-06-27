@@ -45,7 +45,7 @@ services:
       timeout: 5s
       retries: 5
 
-#TODO update to 23+
+#TODO update to 23+ but it will be slower!!
   oracle:
     image: gvenzl/oracle-xe:21.3.0-slim
     container_name: oracle

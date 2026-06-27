@@ -4,7 +4,7 @@ modules:
     port: 61616
     username: artemis
     password: artemis-password
-    await: 500 # optional
+    await: 1000 # optional
     max-consumed-messages: 5 # optional
     max-consumer-timeout: 1000 # optional
     max-call-timeout: 2000 # optional

@@ -172,21 +172,26 @@
       </address-setting>
     </address-settings>
     <addresses>
-      <address name="test1Queue">
+      <address name="test2Topic">
         <anycast>
-          <queue name="test1Queue">
+          <queue name="test2Queue">
             <durable>true</durable>
           </queue>
         </anycast>
       </address>
-      <address name="test-address">
+      <address name="my-test-queue">
         <anycast>
-          <queue name="test-queue">
+          <queue name="my-test-queue">
             <durable>true</durable>
           </queue>
         </anycast>
       </address>
       <address name="test-topic">
+        <multicast>
+          <queue name="my-queue-milti">
+            <durable>true</durable>
+          </queue>
+        </multicast>
       </address>
     </addresses>
     <security-enabled>false</security-enabled>

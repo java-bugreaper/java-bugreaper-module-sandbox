@@ -12,7 +12,7 @@ services:
     #      - "1199:1199"
     #      - "9011:9011"
     volumes:
-      - ./src/test/resources/broker.xml:/var/lib/artemis-instance/etc-override/broker.xml
+      - ./configs/artemis/broker.xml:/var/lib/artemis-instance/etc-override/broker.xml
     restart: always
     environment:
       - TZ=Europe/Kiev
