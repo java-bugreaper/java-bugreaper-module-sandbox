@@ -13,13 +13,14 @@ public abstract class TestArtemisSetup {
 
     protected final Artemis artemis = Artemis.getInstance();
 
+    // already in broker.xml
     protected static final String TEST_QUEUE = "my-test-queue";
-
+    protected static final String TEST_QUEUE_MULTI = "my-queue-milti";
 
     @BeforeEach
     @Step("Clean queue")
     public void clean() {
-        artemis.cleanQueue(TEST_QUEUE);
+        artemis.purgeQueue(TEST_QUEUE);
     }
 
 
