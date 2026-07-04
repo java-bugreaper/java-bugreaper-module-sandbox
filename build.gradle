@@ -1,3 +1,4 @@
+//TODO can remove and run in projects
 buildscript {
     repositories {
         maven {

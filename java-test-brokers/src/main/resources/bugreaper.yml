@@ -8,6 +8,7 @@ modules:
     max-consumed-messages: 5 # optional
     max-consumer-timeout: 1000 # optional
     max-call-timeout: 2000 # optional
+    reverse-messages: true # optional
   rabbit:
     host: localhost
     port: 5672
@@ -16,11 +17,13 @@ modules:
     await: 500 # optional
     max-consumed-messages: 5 # optional
     max-consumer-timeout: 1000 # optional
+    reverse-messages: true # optional
   kafka:
     url: localhost:9094
     await: 2000 # optional
     max-consumed-messages: 5 # optional
     max-consumer-timeout: 3000 # optional
     generate-unique-consumer: false # optional
+    reverse-messages: true # optional
 
 

@@ -194,5 +194,30 @@ class KafkaTests extends TestKafkaSetup {
         kafka.seeCountMessagesInTopicExactly(TOPIC, 0);
     }
 
+    @Test
+    void grabMessagesWithKeyTest() {
+
+
+        kafka.sendToTopicWithKey(TOPIC, "key-1", "message_1");
+        kafka.sendToTopicWithKey(TOPIC, "key-2", "message_2");
+        kafka.sendToTopicWithKey(TOPIC, "key-1", "message_3");
+
+        kafka.seeCountMessagesInTopicExactly(TOPIC, 3);
+
+        kafka.grabMessagesFromTopic(TOPIC, "key-1")
+                .seeListHasExactlyCount(2)
+                .seeListAnyEquals("message_1")
+                .seeListAnyEquals("message_3");
+
+        kafka.grabMessagesFromTopic(TOPIC)
+                .seeListHasExactlyCount(3)
+                .seeListAnyEquals("message_1")
+                .seeListAnyEquals("message_2")
+                .seeListAnyEquals("message_3");
+
+
+    }
+
+
 
 }

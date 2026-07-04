@@ -87,7 +87,7 @@ services:
     container_name: clickhouse
     ports:
       - "8123:8123"   # HTTP interface
-      - "9000:9000"   # Native client
+      - "19000:9000"   # Native client
       #- "9004:9004"   # MySQL protocol
     volumes:
       # dump

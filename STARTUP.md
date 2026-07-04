@@ -87,7 +87,7 @@ http://localhost:8080
 ***
 
 =================================================================================
-# Databases (Mssql, Postgresql, OracleDb)
+# Databases (MySql, Mssql, Postgresql, OracleDb, Clickhouse)
 
 - run tests on the local environment:
 

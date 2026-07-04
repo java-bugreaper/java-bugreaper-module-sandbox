@@ -9,9 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static net.bugreaper.core.allurereporter.AllureBuilder.reportHtmlCsvCases;
 import static net.bugreaper.core.allurereporter.AllureReporter.*;
-import static net.bugreaper.core.filereaders.FileReader.readCsvToArray;
 import static net.bugreaper.core.filereaders.FileReader.readTextFromFile;
 import static net.bugreaper.core.filereaders.ResourcesFileReader.*;
 
@@ -24,9 +22,10 @@ final public class CoreTest {
     @DisplayName("Decision Table csv example")
     @Description("Example of decision table template from csv and base csv attach")
     void csvExample() {
-        reportHtmlCsvCases(
+
+        attachFromCsv(
                 "Test cases example",
-                readCsvToArray("data/csv/test_csv.csv"));
+                "data/csv/test_csv.csv");
 
         Allure.addAttachment("file source v1", "text/csv", readTextFromFile("data/csv/test_csv.csv"));
         Allure.addAttachment("file source v2", "text/csv", readResourceFile("data/csv/test_csv.csv"));
