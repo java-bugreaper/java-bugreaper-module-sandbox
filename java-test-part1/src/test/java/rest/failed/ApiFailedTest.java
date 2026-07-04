@@ -234,4 +234,37 @@ class ApiFailedTest extends TestsSetupFallen {
                         }""");
     }
 
+    @Test
+    @Description("""
+            several requests
+            -> verifyMockSequence failed part""")
+    void verifyMockSequencePartError() {
+
+        final var id = "1";
+        final var name = "Alex";
+        final var email = "alex@com.com";
+
+        mockCreate.postUser(id, 200, name, email);
+        mockCreate.getUser(id, 200, name, email);
+        mockCreate.postUser(id, 200, name, email);
+
+        api.postUser(id, name, email)
+                .seeResponseCodeIs(200);
+        api.getUser(id)
+                .seeResponseCodeIs(200);
+
+        mockVerify.customVerifyMockSequence(
+                """
+                {
+                   "httpRequests":[
+                      {
+                         "method":"GET"
+                      },
+                      {
+                         "method":"POST"
+                      }
+                   ]
+                }""");
+    }
+
 }

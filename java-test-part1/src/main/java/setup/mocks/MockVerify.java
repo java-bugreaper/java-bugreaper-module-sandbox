@@ -19,7 +19,6 @@ public class MockVerify extends MocksApi {
         verifyMock(mockVerify);
     }
 
-    @Step("[MOCK-VERIFY]: custom mockVerify")
     public void customVerifyMockSequence(String mockVerify) {
         verifyMockSequence(mockVerify);
     }

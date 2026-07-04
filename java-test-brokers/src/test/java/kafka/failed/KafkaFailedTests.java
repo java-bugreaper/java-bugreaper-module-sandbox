@@ -60,10 +60,14 @@ class KafkaFailedTests extends TestKafkaSetup {
 
     @Test
     void testGrabFromEmptyTopicFailed() {
-
+        kafka.seeTopicIsEmpty(TOPIC);
         assertThrows(ConditionTimeoutException.class, () ->
                 kafka.grabMessagesFromTopic(TOPIC)
         );
+        assertThrows(AssertionError.class, () ->
+                kafka.seeTopicIsNotEmpty(TOPIC)
+        );
+        kafka.seeTopicIsEmpty(TOPIC);
     }
 
 }

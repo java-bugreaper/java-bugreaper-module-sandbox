@@ -8,7 +8,6 @@ import net.bugreaper.modules.db.CustomDb;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -40,7 +39,7 @@ class ClickhouseDbTest {
                           "name": "Alex"
                         }""");
 
-        db.seeTableDoesNotEmpty("myschema.users");
+        db.seeTableIsNotEmpty("myschema.users");
 
         db.seeRecordExistsInTable("myschema.users",
                 """

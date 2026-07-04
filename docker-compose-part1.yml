@@ -5,7 +5,7 @@ services:
 
   mock-server:
     container_name: mock-server
-    image: mockserver/mockserver:5.15.0
+    image: mockserver/mockserver:7.2.0
     environment:
       JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8 -Dmockserver.watchInitializationJson=true -Dmockserver.logLevel=OFF
       TZ: "Europe/Kiev"

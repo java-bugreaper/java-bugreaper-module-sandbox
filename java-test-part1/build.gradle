@@ -2,6 +2,7 @@ plugins {
     id("java-library")
 }
 
+// OPTIONAL
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
@@ -12,15 +13,15 @@ repositories {
     mavenCentral()
 }
 
-def allureVersion = "2.27.0"
 
 dependencies {
 //not need but you can use for new core
 //    implementation 'net.bugreaper:core:x.x.x'
-    implementation("net.bugreaper:module-rest:1.2.1")
-    implementation("net.bugreaper:module-db:1.1.1")
-    implementation("net.bugreaper:module-minio:1.2.3")
-    implementation("net.bugreaper:module-email:1.0.1")
+
+    implementation("net.bugreaper:module-rest:1.2.3")
+    implementation("net.bugreaper:module-db:1.1.5")
+    implementation("net.bugreaper:module-minio:1.2.4")
+    implementation("net.bugreaper:module-email:1.0.2")
 
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.5.6'
 
@@ -140,6 +141,9 @@ tasks.register("email", Test) {
     test.outputs.upToDateWhen { false }
 }
 
+
+
+def allureVersion = "2.27.0"
 
 task allureGenReport {
     dependsOn("allureServerGenerate")
