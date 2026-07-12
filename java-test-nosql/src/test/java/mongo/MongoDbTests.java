@@ -74,6 +74,47 @@ class MongoDbTests {
 
     }
 
+    @Test
+    @Description("""
+            Insert record from template
+            -> check STRICT assert for record existing""")
+    void insertFromTemplateAndStrictAssertsRecordArraysTest() {
+
+        mongo.insertTemplateIntoCollection(
+                COLLECTION,
+                """
+                        {
+                            "id": 2,
+                            "type": null,
+                            "params": {
+                                "array": [
+                                    {
+                                        "product": "mouse"
+                                    }
+                                ]
+                            }
+                        }"""
+        );
+
+        mongo.seeRecordExistsInCollection(
+                COLLECTION,
+                """
+                        {
+                          "id": 2,
+                          "type": null,
+                          "params": {
+                            "name": "Alex",
+                            "age": 30,
+                            "array": [
+                              {
+                                "product": "mouse",
+                                "price": 99.99
+                              }
+                            ]
+                          }
+                        }""");
+
+    }
 
     @Test
     @Description("""
