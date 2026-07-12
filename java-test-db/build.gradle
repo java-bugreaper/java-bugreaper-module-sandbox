@@ -18,7 +18,7 @@ dependencies {
 //not need but you can use for new core
 //    implementation 'net.bugreaper:-core:x.x.x'
 
-    implementation("net.bugreaper:module-db:1.1.5")
+    implementation("net.bugreaper:module-db:1.1.6")
 
     testImplementation 'org.postgresql:postgresql:42.7.1'
     testImplementation 'com.oracle.database.jdbc:ojdbc11:23.2.0.0'
