@@ -66,8 +66,8 @@ class MinioTests {
 
     @Test
     @Description("""
-            Test create bucket -> upload object and share it (check contains of object)""")
-    void testObjectSharing() {
+            Test create bucket -> upload object and share it than download & check contains of object""")
+    void testObjectSharingDownload() {
         var bucket = "shared-bucket";
         var object = "some_new_dir/object.txt";
 
@@ -86,6 +86,24 @@ class MinioTests {
 
         //or without helper
         assertEquals(readResourceFile(TEST_FILE_LINES), readResourceFile("temp/my_shared_file.txt"), "Shared object correct");
+    }
+
+    @Test
+    @Description("""
+            Test create bucket -> upload object and share it than download & check contains of object""")
+    void testObjectSharingRead() {
+        var bucket = "shared-bucket2";
+        var object = "some_new_dir/object2.txt";
+
+
+        minio.createBucket(bucket);
+        minio.cleanBucket(bucket);
+        minio.uploadFileToBucket(bucket, TEST_FILE, "some_new_dir/object2.txt");
+
+        String link = minio.shareObjectInBucket(bucket, object);
+
+        //or without helper
+        assertEquals(readResourceFile(TEST_FILE), minio.getObjectBySharedLink(link), "Shared object correct");
     }
 
     @Test
