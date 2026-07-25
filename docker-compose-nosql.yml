@@ -22,21 +22,19 @@ services:
       retries: 5
       start_period: 5s
 
-
-  mongo-express:
-    image: mongo-express:latest
-    container_name: mongo-express
-    restart: always
+  redis:
+    image: redis:8.8.1
+    container_name: redis
+    command: redis-server --requirepass your_secure_password
     ports:
-      - "8081:8081"
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example_password
-      ME_CONFIG_MONGODB_URL: mongodb://root:example_password@mongodb:27017/
-      ME_CONFIG_BASICAUTH_USERNAME: root #for UI
-      ME_CONFIG_BASICAUTH_PASSWORD: example_password #for UI
-    depends_on:
-      - mongodb
+      - "6379:6379"
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
 
   autotest-example:
     container_name: autotest-example
@@ -51,3 +49,36 @@ services:
       mongodb:
         condition: service_healthy
     command: sh -c "gradle clean :java-test-nosql:test -DbugreaperEnv=ci"
+
+
+  ############# UI #############
+
+
+  # only for local UI debug
+  mongo-express:
+    image: mongo-express:1.0.2-18
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example_password
+      ME_CONFIG_MONGODB_URL: mongodb://root:example_password@mongodb:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: root #for UI
+      ME_CONFIG_BASICAUTH_PASSWORD: example_password #for UI
+    depends_on:
+      - mongodb
+
+   # only for local UI debug
+  redis-commander:
+    image: rediscommander/redis-commander:redis-commander-210
+    container_name: redis-commander
+    environment:
+      - REDIS_HOSTS=local:redis:6379:0:your_secure_password
+      #- REDIS_HOSTS=local:redis:6379 # no pass
+    ports:
+      - "8082:8081"
+    restart: unless-stopped
+    depends_on:
+      - redis

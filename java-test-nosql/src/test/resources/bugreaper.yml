@@ -4,3 +4,9 @@ modules:
     database: test_db
     await: 1200 # optional
     documents-max-count: 15 # optional
+  redis:
+    host: localhost
+    port: 6379
+    username: default
+    password: your_secure_password
+    await: 1200 # optional

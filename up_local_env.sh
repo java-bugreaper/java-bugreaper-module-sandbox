@@ -20,7 +20,7 @@ run_db() {
 }
 
 run_nosql() {
-  docker-compose -f docker-compose-nosql.yml up -d mongo-express
+  docker-compose -f docker-compose-nosql.yml up -d mongo-express redis-commander
 }
 
 run_brokers() {
