@@ -2,7 +2,6 @@ package redis.positive;
 
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import redis.RedisSetup;
 
@@ -82,7 +81,6 @@ class RedisHashTests extends RedisSetup {
     }
 
     @Test
-    @Order(1)
     void grabHashRecordsTests() {
 
         redisHash.addRecord("users:1", "test1", 800);

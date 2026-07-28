@@ -109,7 +109,7 @@ http://localhost:8080
 
 
 =================================================================================
-# No sql Databases (MongoDb)
+# No sql Databases (MongoDb, Redis)
 
 - run tests on the local environment:
 
