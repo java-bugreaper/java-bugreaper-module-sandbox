@@ -71,14 +71,17 @@ services:
       - mongodb
 
    # only for local UI debug
-  redis-commander:
-    image: rediscommander/redis-commander:redis-commander-210
-    container_name: redis-commander
-    environment:
-      - REDIS_HOSTS=local:redis:6379:0:your_secure_password
-      #- REDIS_HOSTS=local:redis:6379 # no pass
+  redis-ui:
+    image: redis/redisinsight:3.4
+    container_name: redis-insight
     ports:
-      - "8082:8081"
-    restart: unless-stopped
+      - "8082:5540" # UI
     depends_on:
       - redis
+    environment:
+      # Automatically adds the redis service to the dashboard
+      - RI_REDIS_HOST=redis
+      - RI_REDIS_PORT=6379
+      - RI_REDIS_PASSWORD=your_secure_password
+      - RI_REDIS_ALIAS=LocalRedis
+    restart: unless-stopped

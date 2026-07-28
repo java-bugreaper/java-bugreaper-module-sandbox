@@ -18,7 +18,7 @@ def allureVersion = "2.27.0"
 dependencies {
 
     implementation("net.bugreaper:module-mongodb:1.2.0")
-    implementation("net.bugreaper:module-redis:1.0.0-rc1")
+    implementation("net.bugreaper:module-redis:1.0.0")
 
 }
 
