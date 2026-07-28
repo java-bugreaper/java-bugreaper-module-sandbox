@@ -1,5 +1,6 @@
 package artemis.positive;
 
+import artemis.TestArtemisSetup;
 import net.bugreaper.modules.artemis.Artemis;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-class ArtemisTopicTests {
+class ArtemisTopicTests extends TestArtemisSetup {
 
     protected final Artemis artemis = Artemis.getInstance();
     final String topic = "new_topic";

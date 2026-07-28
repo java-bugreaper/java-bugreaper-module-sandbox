@@ -104,8 +104,6 @@ java-test-brokers:
     - name: docker:24.0.7-dind
       alias: docker
       command: ["--tls=false"]
-  variables:
-    TAG: 'all'
   stage: test
   script:
     - docker-compose -f docker-compose-brokers.yml up --force-recreate --exit-code-from autotest-example

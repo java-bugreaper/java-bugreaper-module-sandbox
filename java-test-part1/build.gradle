@@ -1,22 +1,15 @@
 plugins {
-    id("java-library")
-}
-
-// OPTIONAL
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    id 'java'
+    id 'io.qameta.allure' version '3.0.1' //https://plugins.gradle.org/plugin/io.qameta.allure
 }
 
 repositories {
+
     //mavenLocal()
     mavenCentral()
 }
 
-
 dependencies {
-//not need but you can use for new core
-//    implementation 'net.bugreaper:core:x.x.x'
 
     implementation("net.bugreaper:module-rest:1.2.4")
     implementation("net.bugreaper:module-db:1.1.6")
@@ -123,67 +116,4 @@ tasks.register("db", Test) {
     }
 
     test.outputs.upToDateWhen { false }
-}
-
-tasks.register("email", Test) {
-    useJUnitPlatform {
-        includeTags("email")
-    }
-
-    systemProperties(System.getProperties())
-
-    testLogging {
-        events("PASSED", "FAILED", "SKIPPED")
-        showStandardStreams = true
-        exceptionFormat = "full"
-    }
-
-    test.outputs.upToDateWhen { false }
-}
-
-
-
-def allureVersion = "2.27.0"
-
-task allureGenReport {
-    dependsOn("allureServerGenerate")
-}
-
-allure {
-    version = allureVersion
-    aspectjweaver = true
-    configuration = "implementation"
-    autoconfigure = true
-
-    useJUnit5 {
-        version = allureVersion
-    }
-}
-
-allureServer {
-    relativeResultDir = "build/allure-results"
-    allureServerUrl = "http://localhost:8080/"
-    requestToGeneration = { uuid ->
-        """
-            {
-            "reportSpec": {
-                "path": [
-                    "bugreaper-sandbox-part1.test-report"
-                ],
-                "executorInfo": {
-                    "name": "GitLab CI",
-                    "type": "GitLab CI",
-                    "buildName": "gitlab pipeline with tests running on [${System.properties['app']}] env",
-                    "buildUrl": "https://gitlab.com/ambu550/java-bugreaper-sandbox/-/pipelines",
-                    "reportName": "java tests"
-                }
-            },
-            "results": ["$uuid"],
-            "deleteResults": true
-            }
-        """
-    }
-
-    gitLabCallbackEnable = false // Optional
-
 }

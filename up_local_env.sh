@@ -6,7 +6,7 @@ echo CI_PROJECT_DIR=. > .env
 echo TAG=all >> .env
 
 run_core() {
-  docker-compose -f docker-compose-core.yml up -d allure-server
+  docker-compose -f docker-compose-core.yml up -d allure-server allure-ui
   # dummy log on startup
   echo 'startup log success' > java-test-core/src/test/resources/logs/test.log
 }

@@ -109,7 +109,7 @@ services:
 
   autotest-example:
     container_name: autotest-example
-    image: gradle:7.6.3-jdk17
+    image: gradle:8.14.2-jdk17
     working_dir: /app
     environment:
       - TZ=Europe/Kyiv

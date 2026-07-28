@@ -80,7 +80,7 @@ services:
     image: provectuslabs/kafka-ui
     container_name: test_ui_kafka
     ports:
-      - '8082:8080'
+      - '8092:8080'
     environment:
       - KAFKA_CLUSTERS_0_NAME=local
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
@@ -89,7 +89,7 @@ services:
 
   autotest-example:
     container_name: autotest-example
-    image: gradle:7.6.3-jdk17
+    image: gradle:8.14.2-jdk17
     working_dir: /app
     environment:
       - TZ=Europe/Kiev
@@ -104,4 +104,4 @@ services:
         condition: service_healthy
       kafka:
         condition: service_healthy
-    command: sh -c "gradle clean :java-test-brokers:${TAG}"
+    command: sh -c "gradle clean :java-test-brokers:test"
