@@ -17,20 +17,35 @@
 ./gradlew clean :java-test-core:test 
 ```
 
-- local report (without server)
+###  local report (without server)
+
+- download allure once
 ```shell script
-./gradlew :java-test-core:downloadAllure &&
+./gradlew :java-test-core:downloadAllure
+```
+
+- show report
+```shell script
 ./gradlew :java-test-core:allureServe
 ```
 
-- push allure report to the local allure web server
+- push allure report to the local allure web server kochetkovma/allure-server (DEPRECATED!)
 
 ```shell script
-./gradlew :java-test-core:allureGenReport
+./gradlew :java-test-core:allureGenReport 
 ```
 
 - see report on
 http://localhost:8080
+
+- push allure report to the local allure web server frankescobar/allure-docker-service
+
+```shell script
+./gradlew :java-test-core:publishAllure
+```
+
+- see report on
+  http://localhost:5252
 
 ***
 
@@ -52,9 +67,15 @@ http://localhost:8080
 ./gradlew clean :java-test-part1:failed 
 ```
 
-- local report (without server)
+###  local report (without server)
+
+- download allure once
 ```shell script
-./gradlew :java-test-part1:downloadAllure &&
+./gradlew :java-test-part1:downloadAllure
+```
+
+- show report
+```shell script
 ./gradlew :java-test-part1:allureServe
 ```
 
@@ -74,15 +95,21 @@ http://localhost:8080
 ./gradlew clean :java-test-brokers:test 
 ```
 
-- local report (without server)
+###  local report (without server)
+
+- download allure once
 ```shell script
-./gradlew :java-test-brokers:downloadAllure &&
+./gradlew :java-test-brokers:downloadAllure
+```
+
+- show report
+```shell script
 ./gradlew :java-test-brokers:allureServe
 ```
 
 - see artemis UI on http://localhost:8161 (artemis:artemis-password)
 - see rabbit UI on http://localhost:15672 (guest_user:guest_pass)
-- see kafka UI on http://localhost:8082
+- see kafka UI on http://localhost:8092
 
 ***
 
@@ -95,9 +122,15 @@ http://localhost:8080
 ./gradlew clean :java-test-db:test 
 ```
 
-- local report (without server)
+###  local report (without server)
+
+- download allure once
 ```shell script
-./gradlew :java-test-db:downloadAllure &&
+./gradlew :java-test-db:downloadAllure
+```
+
+- show report
+```shell script
 ./gradlew :java-test-db:allureServe
 ```
 
@@ -117,9 +150,15 @@ http://localhost:8080
 ./gradlew clean :java-test-nosql:test 
 ```
 
-- local report (without server)
+###  local report (without server)
+
+- download allure once
 ```shell script
-./gradlew :java-test-nosql:downloadAllure &&
+./gradlew :java-test-nosql:downloadAllure
+```
+
+- show report
+```shell script
 ./gradlew :java-test-nosql:allureServe
 ```
 

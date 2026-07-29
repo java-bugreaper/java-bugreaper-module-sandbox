@@ -1,21 +1,23 @@
 plugins {
-    id("java-library")
+    id 'java'
+    id 'io.qameta.allure' version '3.0.1' //https://plugins.gradle.org/plugin/io.qameta.allure
+    id 'ru.iopump.qa.allure' version '0.1.2' //need only for DEPRECATED kochetkovma/allure-server!!!
+
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
+//java {
+//    sourceCompatibility = JavaVersion.VERSION_17
+//    targetCompatibility = JavaVersion.VERSION_17
+//}
 
 repositories {
+
     //mavenLocal()
     mavenCentral()
 }
 
-// custom build dir
+// custom build dir for testing!
 buildDir = 'my-build'
-
-def allureVersion = "2.27.0"
 
 dependencies {
 
@@ -33,77 +35,131 @@ test {
         showStandardStreams = true
         exceptionFormat = "full"
     }
-
     test.outputs.upToDateWhen { false }
 }
 
-tasks.register("all", Test) {
-    useJUnitPlatform {
-        includeTags("core")
-    }
+// for new server!
 
-        systemProperties(System.getProperties())
+tasks.register('publishAllure') {
 
-        testLogging {
-            events("PASSED", "FAILED", "SKIPPED")
-            showStandardStreams = true
-            exceptionFormat = "full"
+    doLast {
+
+        println "Cleaning previous Allure results..."
+
+        def cleanAllureResults = new URL(
+                "http://localhost:5050/allure-docker-service/clean-results"
+        ).openConnection()
+
+        println cleanAllureResults.inputStream.text
+
+        File resultsDir = file("$buildDir/allure-results")
+
+        int batchSize = 100
+        List<File> files = resultsDir
+                .listFiles({ file -> file.isFile() } as FileFilter)
+                .toList()
+
+        println "Total files: ${files.size()}"
+
+        files.collate(batchSize).eachWithIndex { batch, index ->
+
+            println "Uploading batch ${index + 1}/${Math.ceil(files.size() / batchSize)} (${batch.size()} files)"
+
+            uploadBatch(
+                    batch,
+                    "http://localhost:5050/allure-docker-service/send-results"
+            )
         }
 
-        test.outputs.upToDateWhen { false }
 
-}
+        println "Generating report..."
 
-tasks.register("core", Test) {
-    useJUnitPlatform {
-        includeTags("core")
+        def generate = new URL(
+                "http://localhost:5050/allure-docker-service/generate-report"
+        ).openConnection()
+
+        println generate.inputStream.text
     }
-
-    systemProperties(System.getProperties())
-
-    testLogging {
-        events("PASSED", "FAILED", "SKIPPED")
-        showStandardStreams = true
-        exceptionFormat = "full"
-    }
-
-    test.outputs.upToDateWhen { false }
 }
 
 
-task allureGenReport {
+def uploadBatch(List<File> files, String url) {
+
+    String boundary = "----AllureBoundary${System.currentTimeMillis()}"
+
+    HttpURLConnection conn =
+            new URL(url).openConnection() as HttpURLConnection
+
+    conn.requestMethod = "POST"
+    conn.doOutput = true
+
+    conn.setRequestProperty(
+            "Content-Type",
+            "multipart/form-data; boundary=${boundary}"
+    )
+
+
+    conn.outputStream.withCloseable { out ->
+
+        files.each { file ->
+
+            out << "--${boundary}\r\n"
+            out << "Content-Disposition: form-data; name=\"files[]\"; filename=\"${file.name}\"\r\n"
+            out << "Content-Type: ${getContentType(file)}\r\n\r\n"
+
+            out.write(file.bytes)
+
+            out << "\r\n"
+        }
+
+
+        out << "--${boundary}--\r\n"
+    }
+
+
+    println "Response ${conn.responseCode}"
+
+    if (conn.responseCode >= 400) {
+        println conn.errorStream?.text
+        throw new GradleException("Allure upload failed")
+    }
+}
+
+
+static String getContentType(File file) {
+
+    if (file.name.endsWith(".json")) {
+        return "application/json"
+    }
+
+    if (file.name.endsWith(".png")) {
+        return "image/png"
+    }
+
+    if (file.name.endsWith(".txt")) {
+        return "text/plain"
+    }
+
+    return "application/octet-stream"
+}
+
+//need only for OLD server!!!
+
+tasks.register('allureGenReport') {
     dependsOn("allureServerGenerate")
 }
 
-allure {
-    version = allureVersion
-    aspectjweaver = true
-    configuration = "implementation"
-    autoconfigure = true
-    resultsDir = file(buildDir.toString() +'/allure-results')
-
-    useJUnit5 {
-        version = allureVersion
-    }
-}
-
 allureServer {
-    relativeResultDir = "my-build/allure-results"
+    relativeResultDir = "$buildDir/allure-results"
     allureServerUrl = "http://localhost:8080/"
+
     requestToGeneration = { uuid ->
         """
             {
             "reportSpec": {
                 "path": [
                     "bugreaper-sandbox-core.test-report"
-                ],
-                "executorInfo": {
-                    "name": "GitLab CI",
-                    "type": "GitLab CI",
-                    "buildName": "gitlab pipeline with tests running on [${System.properties['app']}] env",
-                    "buildUrl": "https://gitlab.com/ambu550/java-bugreaper-sandbox/-/pipelines",
-                    "reportName": "java tests"
-                }
+                ]
             },
             "results": ["$uuid"],
             "deleteResults": true
@@ -112,5 +168,4 @@ allureServer {
     }
 
     gitLabCallbackEnable = false // Optional
-
 }

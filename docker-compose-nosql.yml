@@ -38,7 +38,7 @@ services:
 
   autotest-example:
     container_name: autotest-example
-    image: gradle:7.6.3-jdk17
+    image: gradle:7.6.3-jdk17 # left old and run with ./gradlew
     working_dir: /app
     environment:
       - TZ=Europe/Kiev
@@ -48,7 +48,7 @@ services:
     depends_on:
       mongodb:
         condition: service_healthy
-    command: sh -c "gradle clean :java-test-nosql:test -DbugreaperEnv=ci"
+    command: sh -c "./gradlew clean :java-test-nosql:test -DbugreaperEnv=ci"
 
 
   ############# UI #############

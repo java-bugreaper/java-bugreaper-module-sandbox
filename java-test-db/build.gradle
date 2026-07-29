@@ -1,5 +1,6 @@
 plugins {
     id("java-library")
+    id 'io.qameta.allure' version '3.0.1' //https://plugins.gradle.org/plugin/io.qameta.allure
 }
 
 java {
@@ -39,15 +40,4 @@ test {
     }
 
     test.outputs.upToDateWhen { false }
-}
-
-allure {
-    version = allureVersion
-    aspectjweaver = true
-    configuration = "implementation"
-    autoconfigure = true
-
-    useJUnit5 {
-        version = allureVersion
-    }
 }

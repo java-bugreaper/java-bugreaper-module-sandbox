@@ -9,7 +9,7 @@
     </appender>
 
     <logger name="bugreaper-module-mongodb" level="INFO" />
-
+    <logger name="bugreaper-module-redis" level="INFO" />
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>

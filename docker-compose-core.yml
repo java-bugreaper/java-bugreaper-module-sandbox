@@ -5,7 +5,7 @@ services:
 
   autotest-example:
     container_name: autotest-example
-    image: gradle:7.6.3-jdk17
+    image: gradle:8.14.2-jdk17
     working_dir: /app
     environment:
       - TZ=Europe/Kiev
@@ -15,7 +15,7 @@ services:
       - .:/app # or like this ${CI_PROJECT_DIR}:/app
     command: sh -c "gradle clean :java-test-core:test"
 
-  # for local presentation
+  # for local presentation OLD DEPRECATED server
   allure-server:
     container_name: allure-server
     image: kochetkovma/allure-server:2.11.5
@@ -25,3 +25,31 @@ services:
       TZ: "Europe/Kiev"
 
     profiles: ["allure"]
+
+  # for local presentation #2
+  allure-api:
+    image: frankescobar/allure-docker-service:2.27.0
+    container_name: allure-api
+    environment:
+      - CHECK_RESULTS_EVERY_SECONDS=NONE  # NONE = Disables continuous generator execution (generation will be triggered via API/UI)
+      - KEEP_HISTORY=1                   # Essential for preserving test history and trends
+      - KEEP_HISTORY_LATEST=20           # How many recent reports to keep in the history
+      - SECURITY_ENABLED=0        # We are disabling security so that the API accepts files without passwords.
+    ports:
+      - "5050:5050"
+    # if mount volume and set  CHECK_RESULTS_EVERY_SECONDS reports will generate automatically
+#    volumes:
+#      - ./java-test-core/my-build/allure-results:/app/allure-results:ro
+    restart: unless-stopped
+
+  allure-ui:
+    image: frankescobar/allure-docker-service-ui:7.0.3
+    container_name: allure-ui
+    environment:
+      ALLURE_DOCKER_PUBLIC_API_URL: http://localhost:5050
+      ALLURE_DOCKER_PUBLIC_API_URL_PREFIX: ""
+    ports:
+      - "5252:5252"
+    depends_on:
+      - allure-api
+    restart: unless-stopped
