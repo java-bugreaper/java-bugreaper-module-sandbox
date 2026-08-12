@@ -33,7 +33,7 @@ class EmailTest {
         mailpit.seeEmailsInMailboxCountExactly(recipient, 2);
 
 
-        mailpit.getLastEmailInMailbox(recipient)
+        mailpit.getLatestEmailInMailbox(recipient)
                 .seeEmailContainsTo(recipient)
                 .seeEmailContainsFrom("your_email_new@gmail.com")
                 .seeEmailToCountExactly(1)
@@ -106,7 +106,7 @@ class EmailTest {
                 .addHeader("test-head2", "value_2")
                 .send();
 
-        mailpit.getLastEmailInMailbox(recipient)
+        mailpit.getLatestEmailInMailbox(recipient)
                 .seeEmailContainsTo(recipient)
                 .seeEmailSubjectContains("my")
                 .seeEmailBodyContains("world")

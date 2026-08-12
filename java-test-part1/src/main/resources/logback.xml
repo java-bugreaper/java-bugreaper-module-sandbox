@@ -8,6 +8,9 @@
         </encoder>
     </appender>
 
+    <logger name="io.qameta.allure.AllureLifecycle" level="OFF" />
+
+
     <logger name="net.bugreaper.core" level="INFO"/>
 
     <logger name="bugreaper-module-minio" level="INFO"/>

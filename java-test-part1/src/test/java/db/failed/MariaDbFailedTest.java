@@ -175,4 +175,30 @@ class MariaDbFailedTest {
         });
     }
 
+    @Test
+    @Description("""
+            Create data in MariaDb table broken
+            * wrong column type on insert""")
+    void checkMariaDb_wrongColumnTypeInsert_broken() {
+
+        sqlMaria.insertIntoUsers(new Object[][]{
+                {"ID", "test"},
+                {"USERNAME", "second name"},
+                {"DESCRIPTION", null},
+        });
+    }
+    
+    @Test
+    @Description("""
+            Create data in MariaDb table broken
+            * wrong column type on assert""")
+    void checkMariaDb_wrongColumnTypeAssert_broken() {
+
+        sqlMaria.recordUsers_exist(new Object[][]{
+                {"ID", "test"},
+                {"USERNAME", "second name"},
+                {"DESCRIPTION", null},
+        });
+    }
+
 }

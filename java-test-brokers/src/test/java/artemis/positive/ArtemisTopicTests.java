@@ -85,9 +85,9 @@ class ArtemisTopicTests extends TestArtemisSetup {
         artemis.pushToTopic(topic, "message_2", Map.of("my_filter", "user"));
 
 
-        artemis.seeCountMessagesInQueueExactly(queue, 4);
-        artemis.seeCountMessagesInQueueExactly(queue1, 1);
-        artemis.seeCountMessagesInQueueExactly(queue2, 1);
+        artemis.seeMessagesCountInQueueExactly(queue, 4);
+        artemis.seeMessagesCountInQueueExactly(queue1, 1);
+        artemis.seeMessagesCountInQueueExactly(queue2, 1);
 
         artemis.grabMessagesFromQueue(queue1)
                 .seeListHasExactlyCount(1)

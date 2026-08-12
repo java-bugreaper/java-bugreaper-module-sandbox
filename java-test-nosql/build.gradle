@@ -12,8 +12,8 @@ repositories {
 
 dependencies {
 
-    implementation("net.bugreaper:module-mongodb:1.2.0")
-    implementation("net.bugreaper:module-redis:1.0.0")
+    implementation("net.bugreaper:module-mongodb:1.2.2")
+    implementation("net.bugreaper:module-redis:1.0.3")
 
 }
 
