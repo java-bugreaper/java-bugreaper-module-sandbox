@@ -78,7 +78,7 @@ java-test-part1:
       alias: docker
       command: ["--tls=false"]
   variables:
-    TAG: 'all'
+    TAG: 'passed'
   stage: test
   script:
     - docker-compose -f docker-compose-part1.yml up --force-recreate --exit-code-from autotest-example

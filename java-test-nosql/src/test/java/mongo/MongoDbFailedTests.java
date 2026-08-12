@@ -64,7 +64,7 @@ class MongoDbFailedTests {
                         }""");
 
         assertThrows(AssertionError.class, () ->
-                mongo.seeRecordExistsInCollection(
+                mongo.seeDocumentExistsInCollection(
                         COLLECTION,
                         """
                                 {
@@ -98,7 +98,7 @@ class MongoDbFailedTests {
                         }""");
 
         assertThrows(AssertionError.class, () ->
-                mongo.seeRecordPartExistsInCollection(
+                mongo.seeDocumentPartExistsInCollection(
                         COLLECTION,
                         """
                                 {

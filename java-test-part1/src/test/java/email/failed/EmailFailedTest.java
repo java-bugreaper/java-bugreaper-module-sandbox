@@ -80,7 +80,7 @@ class EmailFailedTest {
     void checkFromAssertionCatch() {
         email.sendEmail("your_email@gmail.com", "my_email@gmail.com", "my subject_old", "Hello_old");
 
-        mailpit.getLastEmailInMailbox("my_email@gmail.com")
+        mailpit.getLatestEmailInMailbox("my_email@gmail.com")
                 .seeEmailContainsFrom("wrong@gmail.com");
 
     }
@@ -91,7 +91,7 @@ class EmailFailedTest {
     void checkSubjectContainsAssertionCatch() {
         email.sendEmail("your_email@gmail.com", "my_email@gmail.com", "my subject_old", "Hello_old");
 
-        mailpit.getLastEmailInMailbox("my_email@gmail.com")
+        mailpit.getLatestEmailInMailbox("my_email@gmail.com")
                 .seeEmailSubjectContains("not_right");
 
     }
@@ -112,7 +112,7 @@ class EmailFailedTest {
                 .addCc("cc3@gmail.com")
                 .send();
 
-        mailpit.getLastEmailInMailbox(recipient)
+        mailpit.getLatestEmailInMailbox(recipient)
                 .seeEmailContainsTo(recipient)
                 .seeEmailCcCountExactly(3)
                 .seeEmailContainsCc("cc4@gmail.com");

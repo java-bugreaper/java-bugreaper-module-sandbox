@@ -8,6 +8,8 @@
         </encoder>
     </appender>
 
+    <logger name="io.qameta.allure.AllureLifecycle" level="OFF" />
+
     <logger name="bugreaper-module-mongodb" level="INFO" />
     <logger name="bugreaper-module-redis" level="INFO" />
 

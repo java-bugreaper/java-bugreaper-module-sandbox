@@ -31,12 +31,12 @@ class RabbitFailedTests extends TestRabbitSetup {
 
         reporter("With specific await");
         assertThrows(AssertionError.class, () ->
-                rabbit.withAwaitMs(440).seeQueueMessageCountIsExactly(TEST_QUEUE, 2)
+                rabbit.withAwaitMs(440).seeMessagesCountInQueueExactly(TEST_QUEUE, 2)
         );
 
         reporter("With global await");
         assertThrows(AssertionError.class, () ->
-                rabbit.seeQueueMessageCountIsExactly(TEST_QUEUE, 3)
+                rabbit.seeMessagesCountInQueueExactly(TEST_QUEUE, 3)
         );
     }
 

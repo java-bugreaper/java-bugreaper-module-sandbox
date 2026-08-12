@@ -26,7 +26,7 @@ class KafkaFailedTests extends TestKafkaSetup {
         kafka.sendToTopic(TOPIC, "test_text1");
 
         assertThrows(AssertionError.class, () ->
-                kafka.seeCountMessagesInTopicExactly(TOPIC, 3)
+                kafka.seeMessagesCountInTopicExactly(TOPIC, 3)
         );
 
     }

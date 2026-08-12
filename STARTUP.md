@@ -57,9 +57,9 @@ http://localhost:8080
 ./gradlew clean :java-test-part1:test 
 ```
 
-- run only positive tests
+- run only passed tests
 ```shell script
-./gradlew clean :java-test-part1:all 
+./gradlew clean :java-test-part1:passed 
 ```
 
 - run only expected failed tests

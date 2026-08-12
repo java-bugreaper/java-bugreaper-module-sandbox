@@ -30,7 +30,7 @@ class MongoDbTests {
     void emptyNotEmptyTest(){
 
         mongo.seeCollectionIsEmpty(COLLECTION);
-        mongo.seeRecordsCountInCollectionExactly(COLLECTION, 0);
+        mongo.seeDocumentsCountInCollectionExactly(COLLECTION, 0);
 
         mongo.insertIntoCollection(
                 COLLECTION,
@@ -41,7 +41,7 @@ class MongoDbTests {
         );
 
         mongo.seeCollectionIsNotEmpty(COLLECTION);
-        mongo.seeRecordsCountInCollectionExactly(COLLECTION, 1);
+        mongo.seeDocumentsCountInCollectionExactly(COLLECTION, 1);
     }
 
     @Test
@@ -61,7 +61,7 @@ class MongoDbTests {
                             }
                         }""");
 
-        mongo.seeRecordExistsInCollection(
+        mongo.seeDocumentExistsInCollection(
                 COLLECTION,
                 """
                         {
@@ -96,7 +96,7 @@ class MongoDbTests {
                         }"""
         );
 
-        mongo.seeRecordExistsInCollection(
+        mongo.seeDocumentExistsInCollection(
                 COLLECTION,
                 """
                         {
@@ -133,7 +133,7 @@ class MongoDbTests {
                             }
                         }""");
 
-        mongo.seeRecordPartExistsInCollection(
+        mongo.seeDocumentPartExistsInCollection(
                 COLLECTION,
                 """
                         {

@@ -22,7 +22,7 @@ class ArtemisTests extends TestArtemisSetup {
         artemis.pushToQueue(TEST_QUEUE, "test_text");
         artemis.pushToQueue(TEST_QUEUE, "test_text");
 
-        artemis.seeCountMessagesInQueueExactly(TEST_QUEUE, 2);
+        artemis.seeMessagesCountInQueueExactly(TEST_QUEUE, 2);
     }
 
 
@@ -41,7 +41,7 @@ class ArtemisTests extends TestArtemisSetup {
         artemis.purgeQueue(TEST_QUEUE);
         artemis.pushToQueue(TEST_QUEUE, "test_text1");
         artemis.pushToQueue(TEST_QUEUE, "test_text2");
-        artemis.seeCountMessagesInQueueExactly(TEST_QUEUE, 2);
+        artemis.seeMessagesCountInQueueExactly(TEST_QUEUE, 2);
     }
 
     @Test
@@ -53,7 +53,7 @@ class ArtemisTests extends TestArtemisSetup {
         artemis.pushToQueue(TEST_QUEUE, "test_text1");
         artemis.pushToQueue(TEST_QUEUE, "test_text2");
         artemis.seeQueueIsNotEmpty(TEST_QUEUE);
-        artemis.seeCountMessagesInQueueExactly(TEST_QUEUE, 2);
+        artemis.seeMessagesCountInQueueExactly(TEST_QUEUE, 2);
 
         artemis.grabMessagesFromQueue(TEST_QUEUE)
                 .seeListHasExactlyCount(2);
@@ -66,9 +66,9 @@ class ArtemisTests extends TestArtemisSetup {
     void testCountMessagesLeftFromQueue() {
 
         artemis.pushToQueue(TEST_QUEUE, "test_text1");
-        artemis.seeCountMessagesInQueueExactly(TEST_QUEUE, 1);
+        artemis.seeMessagesCountInQueueExactly(TEST_QUEUE, 1);
         artemis.pushToQueue(TEST_QUEUE, "test_text2");
-        artemis.seeCountMessagesInQueueExactly(TEST_QUEUE, 2);
+        artemis.seeMessagesCountInQueueExactly(TEST_QUEUE, 2);
     }
 
     @Test
@@ -202,7 +202,7 @@ class ArtemisTests extends TestArtemisSetup {
     @Test
     void testCountInEmptyQueue() {
 
-        artemis.seeCountMessagesInQueueExactly(TEST_QUEUE, 0);
+        artemis.seeMessagesCountInQueueExactly(TEST_QUEUE, 0);
     }
 
     @Test
@@ -267,7 +267,7 @@ class ArtemisTests extends TestArtemisSetup {
         artemis.pushToQueue(TEST_QUEUE_MULTI, "test_text1");
         artemis.pushToQueue(TEST_QUEUE_MULTI, "test_text2");
         artemis.seeQueueIsNotEmpty(TEST_QUEUE_MULTI);
-        artemis.seeCountMessagesInQueueExactly(TEST_QUEUE_MULTI, 2);
+        artemis.seeMessagesCountInQueueExactly(TEST_QUEUE_MULTI, 2);
 
         artemis.grabMessagesFromQueue(TEST_QUEUE_MULTI)
                 .seeListHasExactlyCount(2);

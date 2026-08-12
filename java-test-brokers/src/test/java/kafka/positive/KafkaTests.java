@@ -31,7 +31,7 @@ class KafkaTests extends TestKafkaSetup {
 
         kafka.sendToTopic(TOPIC_WITH_PART, "test_text2");
         kafka.sendToTopic(TOPIC_WITH_PART, "test_text3");
-        kafka.seeCountMessagesInTopicExactly(TOPIC_WITH_PART, 2);
+        kafka.seeMessagesCountInTopicExactly(TOPIC_WITH_PART, 2);
     }
 
     @Test
@@ -41,7 +41,7 @@ class KafkaTests extends TestKafkaSetup {
         kafka.sendToTopic(TOPIC, "test_text1");
         kafka.sendToTopic(TOPIC, "test_text2");
         kafka.seeTopicIsNotEmpty(TOPIC);
-        kafka.seeCountMessagesInTopicExactly(TOPIC, 2);
+        kafka.seeMessagesCountInTopicExactly(TOPIC, 2);
 
         kafka.grabMessagesFromTopic(TOPIC)
                 .seeListHasExactlyCount(2);
@@ -54,9 +54,9 @@ class KafkaTests extends TestKafkaSetup {
     void testCountMessagesLeftInTopic() {
 
         kafka.sendToTopic(TOPIC, "test_text1");
-        kafka.seeCountMessagesInTopicExactly(TOPIC, 1);
+        kafka.seeMessagesCountInTopicExactly(TOPIC, 1);
         kafka.sendToTopic(TOPIC, "test_text2");
-        kafka.seeCountMessagesInTopicExactly(TOPIC, 2);
+        kafka.seeMessagesCountInTopicExactly(TOPIC, 2);
     }
 
     @Test
@@ -191,7 +191,7 @@ class KafkaTests extends TestKafkaSetup {
     @Test
     void testCountInEmptyTopic() {
 
-        kafka.seeCountMessagesInTopicExactly(TOPIC, 0);
+        kafka.seeMessagesCountInTopicExactly(TOPIC, 0);
     }
 
     @Test
@@ -202,7 +202,7 @@ class KafkaTests extends TestKafkaSetup {
         kafka.sendToTopicWithKey(TOPIC, "key-2", "message_2");
         kafka.sendToTopicWithKey(TOPIC, "key-1", "message_3");
 
-        kafka.seeCountMessagesInTopicExactly(TOPIC, 3);
+        kafka.seeMessagesCountInTopicExactly(TOPIC, 3);
 
         kafka.grabMessagesFromTopic(TOPIC, "key-1")
                 .seeListHasExactlyCount(2)
