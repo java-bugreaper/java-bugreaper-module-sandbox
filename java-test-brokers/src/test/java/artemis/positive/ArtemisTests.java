@@ -1,6 +1,7 @@
 package artemis.positive;
 
 import artemis.TestArtemisSetup;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
@@ -8,6 +9,7 @@ import java.nio.file.Path;
 import static net.bugreaper.core.filereaders.FileReader.readTextFromFile;
 
 
+@Feature("Positive tests")
 class ArtemisTests extends TestArtemisSetup {
 
     @Test

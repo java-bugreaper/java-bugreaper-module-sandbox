@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static net.bugreaper.core.allurereporter.AllureReporter.attachJson;
+
 
 @Tag("nosql")
 @Epic("[mongodb] Tests for MongoDb")
@@ -22,6 +24,12 @@ class MongoDbTests {
         mongo.cleanCollection(COLLECTION);
     }
 
+    @Test
+    @Description("Show helper properties")
+    void showProperties(){
+        attachJson("getConfigSummary", mongo.getConfigSummary());
+        attachJson("getConnectionSettings", mongo.getConnectionSettings());
+    }
 
     @Test
     @Description("""

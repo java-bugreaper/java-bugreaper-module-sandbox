@@ -4,11 +4,26 @@ import db.TestsSetupDB;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.Test;
 
+import static net.bugreaper.core.allurereporter.AllureReporter.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @Feature("Db checks: OracleDb")
 class OracleDbTest extends TestsSetupDB {
+
+
+    @Test
+    @Description("Show Db hikari/connection options")
+    void showOptions() {
+
+        addStepAttachment(
+                "HikariSettings",
+                sqlOracle.seeHikariSettings());
+
+        addStepAttachment(
+                "DataSourceProperties",
+                sqlOracle.seeDataSourceProperties());
+    }
 
 
     @Test

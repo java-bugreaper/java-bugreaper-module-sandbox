@@ -21,7 +21,7 @@ buildDir = 'my-build'
 
 dependencies {
 
-    implementation 'net.bugreaper:core:1.4.3'
+    implementation 'net.bugreaper:core:1.5.1'
 
 }
 
