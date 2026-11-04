@@ -26,3 +26,4 @@ modules:
       username: default
       password: password
       await: 1000 # optional
+      template-dir: templates/clickhouse/ # optional

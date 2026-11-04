@@ -27,6 +27,24 @@ modules:
       username: MARIA_SCHEMA
       password: maria_pass
       await: 1000 # optional
+
+      # JDBC driver configuration
+      properties: # optional
+        connectTimeout: 3001
+        socketTimeout: 3002
+
+      # Hikari configuration
+      hikari: # optional
+        poolName: mariadb-pool
+        minimumIdle: 2
+        maximumPoolSize: 4
+        maxLifetime: 600000
+        keepAliveTime: 110000
+        connectionTimeout: 10000
+        validationTimeout: 9000
+        idleTimeout: 10555
+        leakDetectionThreshold: 0
+        readOnly: false
   email:
     host: localhost
     port: 1025

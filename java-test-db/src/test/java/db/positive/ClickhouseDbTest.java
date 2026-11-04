@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ClickhouseDbTest {
 
     //custom connect for clickhouse from config
-    private final CustomDb db = CustomDb.getInstance().setTemplatesDirectory("templates/clickhouse/");
+    private final CustomDb db = CustomDb.getInstance();
 
     @BeforeEach
     @Step("Clear test data")

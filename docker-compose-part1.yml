@@ -31,7 +31,7 @@ services:
       retries: 5
 
   minio:
-    image: minio/minio:RELEASE.2025-09-07T16-13-09Z
+    image: coollabsio/minio:RELEASE.2025-10-15T17-29-55Z
     container_name: minio
     hostname: 'minio'
     ports:
@@ -42,10 +42,11 @@ services:
       MINIO_ROOT_PASSWORD: password
     command:  'server /data --console-address ":9001"'
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test: [ "CMD", "mc", "ready", "local" ]
       interval: 5s
       timeout: 5s
       retries: 3
+      start_period: 10s
     restart: unless-stopped
 
   mailpit:

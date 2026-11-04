@@ -12,8 +12,7 @@ public class SqlOracle {
     private final OracleDb jdbcOracle;
 
     public SqlOracle() {
-        jdbcOracle =OracleDb.getInstance();
-
+        jdbcOracle = OracleDb.getInstance();
     }
 
 
@@ -80,4 +79,11 @@ public class SqlOracle {
         jdbcOracle.showDataByCondition("ORACLE_SCHEMA.CITIES_DICT", condition);
     }
 
+    public String seeHikariSettings() {
+       return jdbcOracle.getHikariSettings();
+    }
+
+    public String seeDataSourceProperties() {
+        return jdbcOracle.getDataSourceProperties();
+    }
 }

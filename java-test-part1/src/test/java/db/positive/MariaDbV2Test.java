@@ -6,8 +6,8 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
+import static net.bugreaper.core.allurereporter.AllureReporter.addStepAttachment;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS) //To call connection once per class - but better use MariaDb maria = MariaDb.getInstance()
@@ -21,6 +21,19 @@ class MariaDbV2Test {
     @Step("Clear test data")
     public void clean() {
         maria.truncateTable("MARIA_SCHEMA.USERS");
+    }
+
+    @Test
+    @Description("Show Db hikari/connection options")
+    void showOptions() {
+
+        addStepAttachment(
+                "HikariSettings",
+                maria.getHikariSettings());
+
+        addStepAttachment(
+                "DataSourceProperties",
+                maria.getDataSourceProperties());
     }
 
     @Test

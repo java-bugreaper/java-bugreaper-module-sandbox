@@ -1,6 +1,7 @@
 package artemis.positive;
 
 import artemis.TestArtemisSetup;
+import io.qameta.allure.Feature;
 import net.bugreaper.modules.artemis.Artemis;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
+@Feature("Positive topic tests")
 class ArtemisTopicTests extends TestArtemisSetup {
 
     protected final Artemis artemis = Artemis.getInstance();

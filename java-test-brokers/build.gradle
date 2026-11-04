@@ -14,9 +14,9 @@ dependencies {
 //not need but you can use for new core
 //    implementation 'net.bugreaper:core:x.x.x'
 
-    implementation("net.bugreaper:module-artemis:1.2.3")
-    implementation("net.bugreaper:module-rabbit:1.2.5")
-    implementation("net.bugreaper:module-kafka:1.2.0")
+    implementation("net.bugreaper:module-artemis:1.2.4")
+    implementation("net.bugreaper:module-rabbit:1.2.6")
+    implementation("net.bugreaper:module-kafka:1.2.1")
 
 }
 

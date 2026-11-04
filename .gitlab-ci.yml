@@ -206,7 +206,7 @@ java-test-part1-failed:
 
 
 tests-report:
-  image: frankescobar/allure-docker-service:2.21.0
+  image: frankescobar/allure-docker-service:2.44.0
   stage: report
   script:
     - allure generate --clean _output/allure-results --report-dir _output/allure-report

@@ -49,31 +49,72 @@ services:
       retries: 3
 
   kafka:
-    image: bitnamilegacy/kafka:3.2.3
-    user: root
+    image: apache/kafka:4.3.1
     container_name: kafka
+
     ports:
-      - '9092:9092' # for internal (inside docker network)
-      - '9094:9094' # for external (from localhost)
+      - '9092:9092' # Internal / Docker network
+      - '9094:9094' # External / localhost
+
     environment:
-      - KAFKA_INTER_BROKER_USER=''
-      - KAFKA_INTER_BROKER_PASSWORD=''
-      - ALLOW_PLAINTEXT_LISTENER=yes
-      #      - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=1
-      - BITNAMI_DEBUG=true
-      - KAFKA_CFG_NODE_ID=0
-      - KAFKA_CFG_PROCESS_ROLES=controller,broker
-      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
-      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
-      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      # KRaft
+      KAFKA_NODE_ID: "0"
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "0@kafka:9093"
+
+      # Listeners - NO SASL
+      KAFKA_LISTENERS: "PLAINTEXT://:9092,EXTERNAL://:9094,CONTROLLER://:9093"
+
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094"
+
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT"
+
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+
+      # Single broker
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "1"
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: "0"
+
+      # Automatic topic creation off
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
     healthcheck:
-      test: "bash -c 'printf \"\" > /dev/tcp/127.0.0.1/9092; exit $$?;'"
+      test:
+        - CMD-SHELL
+        - bash -c 'printf "" > /dev/tcp/127.0.0.1/9092'
       interval: 5s
       timeout: 10s
       retries: 3
       start_period: 30s
+
+#  kafka:
+#    image: bitnamilegacy/kafka:3.2.3
+#    user: root
+#    container_name: kafka
+#    ports:
+#      - '9092:9092' # for internal (inside docker network)
+#      - '9094:9094' # for external (from localhost)
+#    environment:
+#      - KAFKA_INTER_BROKER_USER=''
+#      - KAFKA_INTER_BROKER_PASSWORD=''
+#      - ALLOW_PLAINTEXT_LISTENER=yes
+#      - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+#      - BITNAMI_DEBUG=true
+#      - KAFKA_CFG_NODE_ID=0
+#      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+#      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+#      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+#      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
+#      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+#      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+#    healthcheck:
+#      test: "bash -c 'printf \"\" > /dev/tcp/127.0.0.1/9092; exit $$?;'"
+#      interval: 5s
+#      timeout: 10s
+#      retries: 3
+#      start_period: 30s
 
   ## only for local debug
   test_ui_kafka:
