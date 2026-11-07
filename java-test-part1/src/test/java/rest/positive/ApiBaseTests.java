@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 import static net.bugreaper.core.allurereporter.AllureReporter.addStepAttachment;
+import static net.bugreaper.core.allurereporter.AllureReporter.attachJson;
 import static net.bugreaper.core.mappers.StringMappers.stringMapper;
 
 @Tag("rest")
@@ -29,11 +30,12 @@ class ApiBaseTests {
                                 {"id": 1}""";
 
     @Test
-    @Description("""
-            Show API & mocks config summary (return String & print log INFO)""")
-    void checkSummary() {
-        addStepAttachment("Api info", api.getConfigSummary());
-        addStepAttachment("Mocks info", mocksApi.getConfigSummary());
+    @Description("Show helper properties")
+    void showProperties(){
+        addStepAttachment("Api getConfigSummary", api.getConfigSummary());
+        addStepAttachment("Mocks getConfigSummary", mocksApi.getConfigSummary());
+
+        attachJson("getHttpClientParams", api.getHttpClientParams());
     }
 
     @Step("(MOCK)[VERIFY] method: {method}, endpoint: {endpoint}")

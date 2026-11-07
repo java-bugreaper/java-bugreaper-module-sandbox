@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static net.bugreaper.core.allurereporter.AllureReporter.attachJson;
+
 @Tag("email")
 @Epic("[email] Tests as is")
 class EmailTest {
@@ -20,6 +22,13 @@ class EmailTest {
         mailpit.cleanAllMailboxes();
     }
 
+
+    @Test
+    @Description("Show helper properties")
+    void showProperties(){
+        attachJson("getConfigSummary", email.getConfigSummary());
+        attachJson("getSMTPProperties", email.getSMTPProperties());
+    }
 
     @Test
     @Description("""

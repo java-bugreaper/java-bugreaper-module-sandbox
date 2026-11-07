@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static net.bugreaper.core.allurereporter.AllureReporter.addStepAttachment;
+import static net.bugreaper.core.allurereporter.AllureReporter.attachJson;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS) //To call connection once per class - but better use MariaDb maria = MariaDb.getInstance()
@@ -21,6 +22,14 @@ class MariaDbV2Test {
     @Step("Clear test data")
     public void clean() {
         maria.truncateTable("MARIA_SCHEMA.USERS");
+    }
+
+    @Test
+    @Description("Show helper properties")
+    void showProperties(){
+        attachJson("getConfigSummary", maria.getConfigSummary());
+        attachJson("getHikariSettings", maria.getHikariSettings());
+        attachJson("getDataSourceProperties", maria.getDataSourceProperties());
     }
 
     @Test

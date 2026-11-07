@@ -52,7 +52,7 @@ http://localhost:8080
 =================================================================================
 # PART 1 (API, mocks, Db(MariaDb), Minio)
 
-- run tests on the local environment:
+- run all tests on the local environment:
 ```shell script
 ./gradlew clean :java-test-part1:test 
 ```
