@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static net.bugreaper.core.allurereporter.AllureReporter.addStepAttachment;
+import static net.bugreaper.core.allurereporter.AllureReporter.attachJson;
 import static net.bugreaper.core.filereaders.ResourcesFileReader.createResourceFileWithSize;
 import static net.bugreaper.core.filereaders.ResourcesFileReader.readResourceFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,11 +20,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Feature("[minio] Tests as is")
 class MinioTests {
 
-    private final Minio minio = new Minio();
+    private final Minio minio = Minio.getInstance();
 
     private static final String TEST_FILE = "data/test_file_1.txt";
     private static final String TEST_FILE_NO_DIR = "test_file_1.txt";
     private static final String TEST_FILE_LINES = "data/test_file_with_lines.txt";
+
+
+    @Test
+    @Description("Show helper properties")
+    void showProperties(){
+        attachJson("getConfigSummary", minio.getConfigSummary());
+    }
 
     @Test
     @Description("""
